@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LocoTiki — Novelas Visuales & Narrativa</title>
+  <meta name="description" content="Canal de YouTube dedicado a Let's Plays narrados de Novelas Visuales. Tier lists, playlists y más." />
+
+  <!-- Google Fonts: Cinzel (display) + Lora (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================
+       VARIABLES DE DISEÑO — Acá se define toda la paleta.
+       Si querés cambiar un color, solo modificá esto.
+    ================================================ */
+    :root {
+      --bg-base:      #080b12;
+      --bg-layer:     #0d1220;
+      --bg-card:      #111827;
+      --bg-card-alt:  #0f1a2e;
+      --accent-gold:  #c9a84c;
+      --accent-teal:  #2dd4bf;
+      --accent-rose:  #e07b8a;
+      --text-primary: #e8e0d4;
+      --text-muted:   #7a8499;
+      --text-dim:     #4a5568;
+      --border:       rgba(201,168,76,0.18);
+      --border-soft:  rgba(255,255,255,0.06);
+      --shadow-gold:  0 0 40px rgba(201,168,76,0.12);
+      --font-display: 'Cinzel', serif;
+      --font-body:    'Lora', serif;
+      --font-mono:    'JetBrains Mono', monospace;
+      --radius:       8px;
+      --radius-lg:    16px;
+      --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ================================================
+       RESET Y BASE
+    ================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Textura de grano cinematográfico sobre toda la página */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    ::selection { background: var(--accent-gold); color: var(--bg-base); }
+
+    /* ================================================
+       NAVBAR — Navegación fija superior
+    ================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(8,11,18,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-soft);
+      transition: var(--transition);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--accent-gold); }
+
+    /* Hamburger para mobile */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--accent-gold);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ================================================
+       HERO SECTION
+       El encabezado principal con efecto de neblina y
+       líneas decorativas tipo VN (Visual Novel).
+    ================================================ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Fondo de gradiente radial cinematográfico */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(45,212,191,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(224,123,138,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Líneas horizontales decorativas tipo VN */
+    .vn-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .vn-lines::before, .vn-lines::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+      opacity: 0.2;
+    }
+    .vn-lines::before { top: 25%; }
+    .vn-lines::after  { bottom: 25%; }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--accent-teal);
+      border: 1px solid rgba(45,212,191,0.3);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(3.5rem, 12vw, 8rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero-logo span {
+      color: var(--accent-gold);
+      text-shadow: 0 0 60px rgba(201,168,76,0.4);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(0.75rem, 2.5vw, 1rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-bio {
+      max-width: 520px;
+      margin: 2rem auto 0;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-style: italic;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    /* Redes sociales del hero */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .social-btn.youtube {
+      background: rgba(255,0,0,0.1);
+      border-color: rgba(255,0,0,0.3);
+      color: #ff6b6b;
+    }
+    .social-btn.youtube:hover {
+      background: rgba(255,0,0,0.2);
+      box-shadow: 0 0 20px rgba(255,0,0,0.2);
+      transform: translateY(-2px);
+    }
+
+    .social-btn.wattpad {
+      background: rgba(255,100,40,0.1);
+      border-color: rgba(255,100,40,0.3);
+      color: #ff7043;
+    }
+    .social-btn.wattpad:hover {
+      background: rgba(255,100,40,0.2);
+      box-shadow: 0 0 20px rgba(255,100,40,0.2);
+      transform: translateY(-2px);
+    }
+
+    .social-btn.twitter {
+      background: rgba(29,161,242,0.1);
+      border-color: rgba(29,161,242,0.3);
+      color: #1da1f2;
+    }
+    .social-btn.twitter:hover {
+      background: rgba(29,161,242,0.2);
+      box-shadow: 0 0 20px rgba(29,161,242,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Flecha de scroll */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      opacity: 0.4;
+      color: var(--accent-gold);
+      font-size: 1.5rem;
+    }
+
+    /* ================================================
+       SECCIONES GENERALES
+    ================================================ */
+    section { padding: 6rem 1.5rem; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title span { color: var(--accent-gold); }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      font-style: italic;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-gold), transparent);
+      margin: 1rem 0 2rem;
+    }
+
+    /* ================================================
+       TIER LIST — La tabla interactiva de VNs
+       PARA ACTUALIZAR: Buscá el array `vnData` en JS
+       y agregá/modificá los objetos. El diseño
+       se regenera automáticamente.
+    ================================================ */
+    #tierlist { background: var(--bg-layer); }
+
+    .tier-controls {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .tier-filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tier-filter-btn:hover,
+    .tier-filter-btn.active {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      background: rgba(201,168,76,0.07);
+    }
+
+    .tier-table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    .tier-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .tier-table thead th {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 1rem 1.2rem;
+      text-align: left;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tier-table tbody tr {
+      border-bottom: 1px solid var(--border-soft);
+      transition: background var(--transition);
+    }
+
+    .tier-table tbody tr:hover {
+      background: rgba(201,168,76,0.04);
+    }
+
+    .tier-table td {
+      padding: 1rem 1.2rem;
+      vertical-align: middle;
+    }
+
+    .tier-badge {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.5rem;
+    }
+
+    .tier-S { background: rgba(201,168,76,0.15); color: var(--accent-gold); border: 1px solid rgba(201,168,76,0.4); }
+    .tier-A { background: rgba(45,212,191,0.12); color: var(--accent-teal); border: 1px solid rgba(45,212,191,0.3); }
+    .tier-B { background: rgba(147,197,253,0.1); color: #93c5fd; border: 1px solid rgba(147,197,253,0.25); }
+    .tier-C { background: rgba(167,243,208,0.08); color: #6ee7b7; border: 1px solid rgba(110,231,183,0.2); }
+
+    .vn-title-cell {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-style: italic;
+    }
+
+    .score-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .score-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--border-soft);
+      border-radius: 4px;
+      overflow: hidden;
+      min-width: 80px;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent-teal), var(--accent-gold));
+      transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+    .score-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      min-width: 2.5rem;
+      text-align: right;
+    }
+
+    .status-pill {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .status-done    { background: rgba(110,231,183,0.1); color: #6ee7b7; border: 1px solid rgba(110,231,183,0.2); }
+    .status-ongoing { background: rgba(251,191,36,0.1);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .status-pending { background: rgba(148,163,184,0.1); color: #94a3b8; border: 1px solid rgba(148,163,184,0.15); }
+
+    .playlist-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-rose);
+      text-decoration: none;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .playlist-link:hover { color: #fff; }
+    .playlist-link svg { flex-shrink: 0; }
+
+    /* ================================================
+       PLAYLIST HUB
+    ================================================ */
+    .playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .playlist-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+    }
+    .playlist-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    /* Card destacada (featured) */
+    .playlist-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-color: rgba(201,168,76,0.25);
+    }
+    @media (max-width: 640px) {
+      .playlist-card.featured { grid-template-columns: 1fr; }
+    }
+
+    .card-thumbnail {
+      background: var(--bg-base);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .playlist-card.featured .card-thumbnail {
+      aspect-ratio: auto;
+      min-height: 220px;
+    }
+
+    .thumb-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(8,11,18,0.6);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .playlist-card:hover .thumb-overlay { opacity: 1; }
+
+    .play-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0.8);
+      transition: transform var(--transition);
+    }
+    .playlist-card:hover .play-icon { transform: scale(1); }
+
+    .card-thumb-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      opacity: 0.08;
+      color: var(--accent-gold);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+    }
+
+    .card-body {
+      padding: 1.4rem;
+    }
+
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+      font-style: italic;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: var(--transition);
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--accent-gold);
+    }
+    .card-cta:hover {
+      background: rgba(201,168,76,0.2);
+      box-shadow: 0 0 20px rgba(201,168,76,0.15);
+    }
+
+    /* ================================================
+       SECCIÓN LITERARIA — Wattpad
+    ================================================ */
+    #literaria { background: var(--bg-layer); }
+
+    .lit-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      max-width: 700px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lit-card::before {
+      content: '"';
+      position: absolute;
+      top: -1rem;
+      left: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 12rem;
+      color: var(--accent-gold);
+      opacity: 0.05;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .lit-card::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent-gold), var(--accent-rose));
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    }
+
+    .lit-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-style: italic;
+      color: var(--accent-gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .lit-excerpt {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .lit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,100,40,0.15), rgba(224,123,138,0.15));
+      border: 1px solid rgba(255,112,67,0.35);
+      color: #ff7043;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .lit-btn:hover {
+      background: linear-gradient(135deg, rgba(255,100,40,0.25), rgba(224,123,138,0.25));
+      box-shadow: 0 0 24px rgba(255,112,67,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ================================================
+       FOOTER
+    ================================================ */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+    }
+
+    /* ================================================
+       ANIMACIONES
+    ================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* Animación de entrada al hacer scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================================================
+       MOBILE RESPONSIVE
+    ================================================ */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(8,11,18,0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1rem; }
+      .nav-toggle { display: flex; z-index: 100; }
+
+      section { padding: 4rem 1.2rem; }
+
+      .lit-card { padding: 2rem 1.5rem; }
+
+      .tier-table { font-size: 0.85rem; }
+      .tier-table thead th,
+      .tier-table td { padding: 0.75rem 0.8rem; }
+
+      .score-bar { min-width: 50px; }
+    }
+
+    /* Ocultar columna descripción en pantallas chicas */
+    @media (max-width: 500px) {
+      .hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================
+       NAVBAR
+  ================================================ -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">LocoTiki</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#tierlist" onclick="closeNav()">Tier List</a></li>
+      <li><a href="#playlists" onclick="closeNav()">Playlists</a></li>
+      <li><a href="#literaria" onclick="closeNav()">Escritura</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ================================================
+       HERO SECTION
+  ================================================ -->
+  <section id="hero">
+    <div class="vn-lines"></div>
+
+    <div class="hero-badge">✦ Canal de Novelas Visuales</div>
+
+    <h1 class="hero-logo">Loco<span>Tiki</span></h1>
+    <p class="hero-subtitle">Let's Plays · Narrativa · Visual Novels</p>
+
+    <p class="hero-bio">
+      25 años, estudiante de Marketing y narrador apasionado de historias.
+      Subo Let's Plays narrados de Novelas Visuales donde la historia importa tanto
+      como los momentos que te deja.
+    </p>
+
+    <div class="social-links">
+      <a href="https://youtube.com/@LocoTiki" target="_blank" rel="noopener" class="social-btn youtube">
+        <!-- Ícono YouTube inline SVG -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+        YouTube
+      </a>
+      <a href="https://www.wattpad.com/user/LocoTiki" target="_blank" rel="noopener" class="social-btn wattpad">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4v8h2V8H6zm4 0v8h2V8h-2zm4 0l2 5 2-5h-2l-1 3-1-3h-2z"/></svg>
+        Wattpad
+      </a>
+      <a href="https://twitter.com/LocoTiki" target="_blank" rel="noopener" class="social-btn twitter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1h3.7l-8 9.2L24 23h-7.4l-5.8-7.5L4.4 23H.7l8.6-9.8L0 1h7.6l5.2 6.8L18.9 1zm-1.3 19.8h2L6.5 3.2H4.3l13.3 17.6z"/></svg>
+        Twitter / X
+      </a>
+    </div>
+
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <!-- ================================================
+       TIER LIST DE VISUAL NOVELS
+  ================================================ -->
+  <section id="tierlist">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">📖 Mis Rankings</p>
+        <h2 class="section-title">Visual Novel <span>Tier List</span></h2>
+        <div class="section-divider"></div>
+        <p class="section-desc">
+          Todas las VNs que jugué y narré en el canal, rankeadas por experiencia personal.
+          Filtrate por estado o tier.
+        </p>
+      </div>
+
+      <!-- Botones de filtro -->
+      <div class="tier-controls reveal">
+        <button class="tier-filter-btn active" data-filter="all">Todas</button>
+        <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
+        <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
+        <button class="tier-filter-btn" data-filter="S">Tier S</button>
+        <button class="tier-filter-btn" data-filter="A">Tier A</button>
+        <button class="tier-filter-btn" data-filter="B">Tier B</button>
+      </div>
+
+      <!-- Tabla -->
+      <div class="tier-table-wrapper reveal">
+        <table class="tier-table" id="vnTable">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Título</th>
+              <th>Puntaje</th>
+              <th class="hide-mobile">Estado</th>
+              <th>Playlist</th>
+            </tr>
+          </thead>
+          <tbody id="vnTableBody">
+            <!-- Las filas se generan con JavaScript → ver vnData más abajo -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       PLAYLIST HUB
+  ================================================ -->
+  <section id="playlists">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">🎬 Series del Canal</p>
+        <h2 class="section-title">Playlist <span>Hub</span></h2>
+        <div class="section-divider"></div>
+        <p class="section-desc">
+          Mis series principales. Cada historia narrada con cariño, capítulo por capítulo.
+        </p>
+      </div>
+
+      <div class="playlist-grid">
+
+        <!-- Card Destacada: Planetarian Full Story -->
+        <article class="playlist-card featured reveal">
+          <div class="card-thumbnail">
+            <div class="card-thumb-bg">PLN</div>
+            <div class="thumb-overlay">
+              <div class="play-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#080b12"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-tag">⭐ Serie Destacada · Full Story</p>
+            <h3 class="card-title">Planetarian: The Reverie of a Little Planet</h3>
+            <p class="card-desc">
+              La historia completa de Yumemi y el planetario en una sola transmisión de 5 horas.
+              Una experiencia que te va a romper el corazón de la mejor forma posible.
+            </p>
+            <div class="card-meta">
+              <span class="meta-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+                ~5 horas
+              </span>
+              <span class="meta-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+                Full Story
+              </span>
+            </div>
+            <a href="https://www.youtube.com/playlist?list=TU_PLAYLIST_PLANETARIAN" target="_blank" rel="noopener" class="card-cta">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Ver en YouTube
+            </a>
+          </div>
+        </article>
+
+        <!-- Cards normales de playlists — duplicá este bloque para agregar más -->
+        <article class="playlist-card reveal">
+          <div class="card-thumbnail">
+            <div class="card-thumb-bg">UMN</div>
+            <div class="thumb-overlay">
+              <div class="play-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#080b12"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-tag">Serie Completa</p>
+            <h3 class="card-title">Umineko: When They Cry</h3>
+            <p class="card-desc">Misterio, magia y el eterno debate: ¿brujería o lógica?</p>
+            <div class="card-meta">
+              <span class="status-pill status-done">✓ Terminada</span>
+            </div>
+            <a href="https://www.youtube.com/playlist?list=TU_PLAYLIST_UMINEKO" target="_blank" rel="noopener" class="card-cta">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Ver Playlist
+            </a>
+          </div>
+        </article>
+
+        <article class="playlist-card reveal">
+          <div class="card-thumbnail">
+            <div class="card-thumb-bg">HMW</div>
+            <div class="thumb-overlay">
+              <div class="play-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#080b12"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-tag">Serie en curso</p>
+            <h3 class="card-title">Himawari: The Sunflower</h3>
+            <p class="card-desc">Ciencia ficción y memorias perdidas. Una joya poco explorada.</p>
+            <div class="card-meta">
+              <span class="status-pill status-ongoing">▶ En curso</span>
+            </div>
+            <a href="https://www.youtube.com/playlist?list=TU_PLAYLIST_HIMAWARI" target="_blank" rel="noopener" class="card-cta">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Ver Playlist
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       SECCIÓN LITERARIA — Wattpad
+  ================================================ -->
+  <section id="literaria">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">✍️ Mi escritura</p>
+        <h2 class="section-title">Entre páginas <span>y miradas</span></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="lit-card reveal">
+        <p class="lit-title">Entre páginas y miradas</p>
+        <p class="lit-excerpt">
+          Más allá del canal, también escribo. Historias que nacen de los mismos lugares
+          que me atrajeron a las novelas visuales: la intimidad de un personaje bien construido,
+          la belleza de un momento que no querés que termine.
+          Encontralo en Wattpad y seguí la historia donde las cámaras no llegan.
+        </p>
+        <a href="https://www.wattpad.com/user/LocoTiki" target="_blank" rel="noopener" class="lit-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Leer en Wattpad
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       FOOTER
+  ================================================ -->
+  <footer>
+    <div class="footer-logo">LocoTiki</div>
+    <p class="footer-copy">© 2025 LocoTiki · Hecho con narrativa y código</p>
+  </footer>
+
+
+  <!-- ================================================
+       JAVASCRIPT
+  ================================================ -->
+  <script>
+    /* ================================================
+       DATOS DE LA TIER LIST
+       ✏️ CÓMO ACTUALIZAR:
+       - Cada objeto {} es una fila de la tabla.
+       - Copiá uno existente, pegalo y cambiá los valores.
+       - tier: "S" | "A" | "B" | "C"
+       - score: número del 1 al 10 (acepta decimales)
+       - status: "Terminada" | "En curso" | "Pendiente"
+       - playlist: URL de tu playlist de YouTube
+       - playlistLabel: texto del botón de link
+    ================================================ */
+    const vnData = [
+      {
+        title: "Umineko: When They Cry",
+        tier: "S",
+        score: 10,
+        status: "Terminada",
+        playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_UMINEKO",
+        playlistLabel: "Ver serie"
+      },
+      {
+        title: "Planetarian: The Reverie of a Little Planet",
+        tier: "S",
+        score: 9.8,
+        status: "Terminada",
+        playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_PLANETARIAN",
+        playlistLabel: "Full Story"
+      },
+      {
+        title: "Himawari: The Sunflower",
+        tier: "A",
+        score: 8.5,
+        status: "En curso",
+        playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_HIMAWARI",
+        playlistLabel: "Ver serie"
+      },
+      {
+        title: "Clannad",
+        tier: "S",
+        score: 9.5,
+        status: "Terminada",
+        playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_CLANNAD",
+        playlistLabel: "Ver serie"
+      },
+      {
+        title: "Little Busters!",
+        tier: "A",
+        score: 8.8,
+        status: "Terminada",
+        playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_LB",
+        playlistLabel: "Ver serie"
+      },
+      {
+        title: "Steins;Gate",
+        tier: "S",
+        score: 10,
+        status: "Terminada",
+        playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_SG",
+        playlistLabel: "Ver serie"
+      },
+      {
+        title: "White Album 2",
+        tier: "A",
+        score: 9.0,
+        status: "Pendiente",
+        playlist: "#",
+        playlistLabel: "Próximamente"
+      },
+      {
+        title: "Rewrite",
+        tier: "B",
+        score: 7.5,
+        status: "Terminada",
+        playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_REWRITE",
+        playlistLabel: "Ver serie"
+      },
+    ];
+
+    /* ================================================
+       FUNCIÓN QUE DIBUJA LA TABLA
+       Toma el array vnData, genera el HTML y lo inyecta.
+       Acepta un filtro opcional para filtrar filas.
+    ================================================ */
+    function renderTable(filter = "all") {
+      const tbody = document.getElementById("vnTableBody");
+
+      // Filtramos los datos según el botón activo
+      const filtered = vnData.filter(vn => {
+        if (filter === "all") return true;
+        if (["S","A","B","C"].includes(filter)) return vn.tier === filter;
+        return vn.status === filter;
+      });
+
+      // Mapeamos cada VN a una fila HTML
+      tbody.innerHTML = filtered.map(vn => {
+        const statusClass = {
+          "Terminada": "status-done",
+          "En curso":  "status-ongoing",
+          "Pendiente": "status-pending"
+        }[vn.status] || "status-pending";
+
+        const barWidth = (vn.score / 10) * 100;
+
+        const isLink = vn.playlist !== "#";
+
+        return `
+          <tr data-tier="${vn.tier}" data-status="${vn.status}">
+            <td>
+              <span class="tier-badge tier-${vn.tier}">${vn.tier}</span>
+            </td>
+            <td class="vn-title-cell">${vn.title}</td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar">
+                  <div class="score-bar-fill" style="width: ${barWidth}%"></div>
+                </div>
+                <span class="score-num">${vn.score}</span>
+              </div>
+            </td>
+            <td class="hide-mobile">
+              <span class="status-pill ${statusClass}">${vn.status}</span>
+            </td>
+            <td>
+              ${isLink
+                ? `<a href="${vn.playlist}" target="_blank" rel="noopener" class="playlist-link">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    ${vn.playlistLabel}
+                  </a>`
+                : `<span class="playlist-link" style="opacity:0.4;cursor:default">${vn.playlistLabel}</span>`
+              }
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    /* ================================================
+       FILTROS: Escuchamos clicks en los botones
+    ================================================ */
+    document.querySelectorAll(".tier-filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tier-filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderTable(btn.dataset.filter);
+      });
+    });
+
+    /* ================================================
+       NAVBAR MOBILE — Hamburger toggle
+    ================================================ */
+    const navToggle = document.getElementById("navToggle");
+    const navLinks  = document.getElementById("navLinks");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    function closeNav() {
+      navLinks.classList.remove("open");
+    }
+
+    /* ================================================
+       SCROLL REVEAL — Animación de aparición
+       Usa Intersection Observer (eficiente, sin librerías)
+    ================================================ */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target); // solo anima una vez
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    /* ================================================
+       NAVBAR — Se vuelve más opaco al hacer scroll
+    ================================================ */
+    window.addEventListener("scroll", () => {
+      document.getElementById("navbar").style.background =
+        window.scrollY > 50
+          ? "rgba(8,11,18,0.98)"
+          : "rgba(8,11,18,0.85)";
+    });
+
+    /* ================================================
+       INIT — Renderizamos la tabla al cargar la página
+    ================================================ */
+    renderTable();
+  </script>
+
+</body>
+</html>
