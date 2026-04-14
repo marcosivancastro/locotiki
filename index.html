@@ -1057,6 +1057,9 @@
        - playlist: URL de tu playlist de YouTube
        - playlistLabel: texto del botón de link
     ================================================ */
+    /* ================================================
+       DATOS DE LA TIER LIST (Sincronizados)
+    ================================================ */
     const vnData = [
       { title: "Chaos;Head Noah", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gQYvS6d68wsBurTtxHYR_L", playlistLabel: "Ver serie" },
       { title: "Zero Escape: Virtue's Last Reward", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gCJ157trYJifVN1ixn8sS-", playlistLabel: "Ver serie" },
@@ -1077,16 +1080,15 @@
 
     /* ================================================
        FUNCIÓN QUE DIBUJA LA TABLA
-       Toma el array vnData, genera el HTML y lo inyecta.
-       Acepta un filtro opcional para filtrar filas.
     ================================================ */
-   function renderTable(filter = "all") {
+    function renderTable(filter = "all") {
       const tbody = document.getElementById("vnTableBody");
 
       const filtered = vnData.filter(vn => {
         if (filter === "all") return true;
-        // Filtro por duración o por estado
+        // Si el filtro es una duración (Corta, Media, Larga)
         if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
+        // Si no, busca por el estado (Terminada, En curso, Dropeada)
         return vn.status === filter;
       });
 
@@ -1094,11 +1096,10 @@
         const statusClass = {
           "Terminada": "status-done",
           "En curso":  "status-ongoing",
-          "Dropeada":  "status-pending", // Usamos el color gris para las dropeadas
+          "Dropeada":  "status-pending",
           "Pendiente": "status-pending"
         }[vn.status] || "status-pending";
 
-        // Convertimos el puntaje en estrellas visuales
         const stars = "⭐".repeat(vn.score);
 
         return `
@@ -1123,49 +1124,37 @@
     }
 
     /* ================================================
-       NAVBAR MOBILE — Hamburger toggle
+       EVENTOS Y FILTROS
     ================================================ */
-    const navToggle = document.getElementById("navToggle");
-    const navLinks  = document.getElementById("navLinks");
-
-    navToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
+    // Escuchamos los clicks en los botones de la Tier List
+    document.querySelectorAll(".tier-filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        // Quitamos la clase active de todos y se la damos al que clickeamos
+        document.querySelectorAll(".tier-filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        // Mandamos el valor de 'data-filter' a la función
+        renderTable(btn.dataset.filter);
+      });
     });
 
-    function closeNav() {
-      navLinks.classList.remove("open");
+    // Mobile Navbar Toggle
+    const navToggle = document.getElementById("navToggle");
+    const navLinks  = document.getElementById("navLinks");
+    if(navToggle) {
+        navToggle.addEventListener("click", () => navLinks.classList.toggle("open"));
     }
+    function closeNav() { navLinks.classList.remove("open"); }
 
-    /* ================================================
-       SCROLL REVEAL — Animación de aparición
-       Usa Intersection Observer (eficiente, sin librerías)
-    ================================================ */
+    // Scroll Reveal
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
-          revealObserver.unobserve(entry.target); // solo anima una vez
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
-    /* ================================================
-       NAVBAR — Se vuelve más opaco al hacer scroll
-    ================================================ */
-    window.addEventListener("scroll", () => {
-      document.getElementById("navbar").style.background =
-        window.scrollY > 50
-          ? "rgba(8,11,18,0.98)"
-          : "rgba(8,11,18,0.85)";
-    });
-
-    /* ================================================
-       INIT — Renderizamos la tabla al cargar la página
-    ================================================ */
+    // Inicializar tabla
     renderTable();
-  </script>
-
-</body>
-</html>
