@@ -877,11 +877,9 @@
       <!-- Botones de filtro -->
       <div class="tier-controls reveal">
         <button class="tier-filter-btn active" data-filter="all">Todas</button>
-        <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
-        <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
-        <button class="tier-filter-btn" data-filter="S">Tier S</button>
-        <button class="tier-filter-btn" data-filter="A">Tier A</button>
-        <button class="tier-filter-btn" data-filter="B">Tier B</button>
+        <button class="tier-filter-btn" data-filter="Corta">Cortas (< 5h)</button>
+        <button class="tier-filter-btn" data-filter="Media">Medias (5-20h)</button>
+        <button class="tier-filter-btn" data-filter="Larga">Largas (> 20h)</button>
       </div>
 
       <!-- Tabla -->
@@ -1091,21 +1089,24 @@
       const tbody = document.getElementById("vnTableBody");
 
       // Filtramos los datos según el botón activo
-      const filtered = vnData.filter(vn => {
-        if (filter === "all") return true;
-        if (["S","A","B","C"].includes(filter)) return vn.tier === filter;
-        return vn.status === filter;
-      });
+     const filtered = vnData.filter(vn => {
+       if (filter === "all") return true;
+     // Ahora filtra por la duración (Corta, Media, Larga)
+       if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
+     return vn.status === filter;
+});
 
       // Mapeamos cada VN a una fila HTML
-      tbody.innerHTML = filtered.map(vn => {
-        const statusClass = {
-          "Terminada": "status-done",
-          "En curso":  "status-ongoing",
-          "Pendiente": "status-pending"
-        }[vn.status] || "status-pending";
+     // Genera una cadena de estrellas según el puntaje
+const stars = "⭐".repeat(vn.score); 
 
-        const barWidth = (vn.score / 10) * 100;
+return `
+  <tr>
+    <td><span class="duration-badge">${vn.duration}</span></td>
+    <td class="vn-title-cell">${vn.title}</td>
+    <td><span class="stars-display">${stars}</span></td>
+    ...
+`;
 
         const isLink = vn.playlist !== "#";
 
