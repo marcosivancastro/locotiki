@@ -876,11 +876,14 @@
 
       <!-- Botones de filtro -->
       <div class="tier-controls reveal">
-        <button class="tier-filter-btn active" data-filter="all">Todas</button>
-        <button class="tier-filter-btn" data-filter="Corta">Cortas (< 5h)</button>
-        <button class="tier-filter-btn" data-filter="Media">Medias (5-20h)</button>
-        <button class="tier-filter-btn" data-filter="Larga">Largas (> 20h)</button>
-      </div>
+       <button class="tier-filter-btn active" data-filter="all">Todas</button>
+       <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas (&lt; 5h)</button>
+       <button class="tier-filter-btn" data-filter="Media">⏳ Medias (5-20h)</button>
+       <button class="tier-filter-btn" data-filter="Larga">⏳ Largas (&gt; 20h)</button>
+       <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
+       <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
+       <button class="tier-filter-btn" data-filter="Dropeada">✕ Dropeadas</button>
+    </div>
 
       <!-- Tabla -->
       <div class="tier-table-wrapper reveal">
@@ -1055,29 +1058,21 @@
        - playlistLabel: texto del botón de link
     ================================================ */
     const vnData = [
-      // JUGANDO / EN CURSO
-      { title: "Umineko no Naku Koro ni Chiru", tier: "S", score: 10, status: "En curso", playlist: "#", playlistLabel: "En curso" }, //
-      { title: "Himawari - The Sunflower", tier: "A", score: 8.5, status: "En curso", playlist: "https://www.youtube.com/playlist?list=TU_PLAYLIST_HIMAWARI", playlistLabel: "Ver serie" }, //
-      { title: "Ace Attorney Investigations: Miles Edgeworth", tier: "B", score: 7.0, status: "En curso", playlist: "#", playlistLabel: "En curso" }, //
-
-      // FINALIZADAS / TERMINADAS
-      { title: "Umineko no Naku Koro ni", tier: "S", score: 10, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "Planetarian HD", tier: "S", score: 9.8, status: "Terminada", playlist: "#", playlistLabel: "Full Story" }, //
-      { title: "999: Nine Hours, Nine Persons, Nine Doors", tier: "S", score: 9.5, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "Phoenix Wright: Ace Attorney", tier: "A", score: 9.0, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "Danganronpa: Trigger Happy Havoc", tier: "A", score: 8.8, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "Lucy -La eternidad que ella deseó-", tier: "A", score: 8.5, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "Narcissu", tier: "A", score: 8.0, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "Chasing Tails", tier: "B", score: 7.5, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "I walk among zombies", tier: "B", score: 7.0, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-      { title: "Cross Days", tier: "C", score: 6.0, status: "Terminada", playlist: "#", playlistLabel: "Ver serie" }, //
-
-      // PENDIENTES
-      { title: "Steins;Gate", tier: "S", score: 10, status: "Pendiente", playlist: "#", playlistLabel: "Próximamente" }, //
-      { title: "Danganronpa V3: Killing Harmony", tier: "A", score: 9.2, status: "Pendiente", playlist: "#", playlistLabel: "Próximamente" }, //
-      { title: "YOU and ME and HER (Totono)", tier: "B", score: 8.0, status: "Pendiente", playlist: "#", playlistLabel: "Próximamente" }, //
-      { title: "Zero Escape: Zero Time Dilemma", tier: "B", score: 7.5, status: "Pendiente", playlist: "#", playlistLabel: "Próximamente" }, //
-      { title: "Witch's Heart", tier: "C", score: 6.5, status: "Pendiente", playlist: "#", playlistLabel: "Próximamente" } //
+      { title: "Chaos;Head Noah", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gQYvS6d68wsBurTtxHYR_L", playlistLabel: "Ver serie" },
+      { title: "Zero Escape: Virtue's Last Reward", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gCJ157trYJifVN1ixn8sS-", playlistLabel: "Ver serie" },
+      { title: "Zero Escape: 999", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jdvMw2nhP3BcfZ6xiiHhEg", playlistLabel: "Ver serie" },
+      { title: "Urban Myth Dissolution Center", duration: "Larga", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hmf-XkuXRtqK1UjuunPUvC", playlistLabel: "Ver serie" },
+      { title: "Umineko no Naku Koro Ni", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gQI6P0vV2oLoaxT0GufiVa", playlistLabel: "Ver serie" },
+      { title: "Lucy -La eternidad que ella deseó-", duration: "Media", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hVToas5N1DIl3ujVpOs6iO", playlistLabel: "Ver serie" },
+      { title: "I walk among zombies", duration: "Media", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hhplFJuQkwX8VvmVr4ED5Q", playlistLabel: "Ver serie" },
+      { title: "Planetarian HD", duration: "Media", score: 5, status: "Terminada", playlist: "#", playlistLabel: "Full Story" },
+      { title: "Cross Days", duration: "Media", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hEwQpI_PwQH8De6VPgEaBj", playlistLabel: "Ver serie" },
+      { title: "Chasing Tails ~A Promise in the Snow~", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iFom-EH4hoFnKf-M4Z7ola", playlistLabel: "Ver serie" },
+      { title: "Evan's Remains", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6j0pMgNNxIOSOTeVfQUMyXr", playlistLabel: "Ver serie" },
+      { title: "Little Misfortune", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6i0SY0D2ypgdxEQ2hHXX46S", playlistLabel: "Ver serie" },
+      { title: "Love Choice", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6h4Qlfo_Dq6dHrU5b8VTRT8", playlistLabel: "Ver serie" },
+      { title: "Milk inside a bag of milk...", duration: "Corta", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jK-397d5QBd2lzdxF3PW1L", playlistLabel: "Ver serie" },
+      { title: "Kimi ga Shine (Your Turn To Die)", duration: "Larga", score: 5, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jZzXmzmyxlAQTQ-AYhIC5h", playlistLabel: "Ver serie" }
     ];
 
     /* ================================================
@@ -1085,72 +1080,47 @@
        Toma el array vnData, genera el HTML y lo inyecta.
        Acepta un filtro opcional para filtrar filas.
     ================================================ */
-    function renderTable(filter = "all") {
+   function renderTable(filter = "all") {
       const tbody = document.getElementById("vnTableBody");
 
-      // Filtramos los datos según el botón activo
-     const filtered = vnData.filter(vn => {
-       if (filter === "all") return true;
-     // Ahora filtra por la duración (Corta, Media, Larga)
-       if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
-     return vn.status === filter;
-});
+      const filtered = vnData.filter(vn => {
+        if (filter === "all") return true;
+        // Filtro por duración o por estado
+        if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
+        return vn.status === filter;
+      });
 
-      // Mapeamos cada VN a una fila HTML
-     // Genera una cadena de estrellas según el puntaje
-const stars = "⭐".repeat(vn.score); 
+      tbody.innerHTML = filtered.map(vn => {
+        const statusClass = {
+          "Terminada": "status-done",
+          "En curso":  "status-ongoing",
+          "Dropeada":  "status-pending", // Usamos el color gris para las dropeadas
+          "Pendiente": "status-pending"
+        }[vn.status] || "status-pending";
 
-return `
-  <tr>
-    <td><span class="duration-badge">${vn.duration}</span></td>
-    <td class="vn-title-cell">${vn.title}</td>
-    <td><span class="stars-display">${stars}</span></td>
-    ...
-`;
-
-        const isLink = vn.playlist !== "#";
+        // Convertimos el puntaje en estrellas visuales
+        const stars = "⭐".repeat(vn.score);
 
         return `
-          <tr data-tier="${vn.tier}" data-status="${vn.status}">
+          <tr>
             <td>
-              <span class="tier-badge tier-${vn.tier}">${vn.tier}</span>
+              <span class="status-pill ${statusClass}" style="border:1px solid rgba(255,255,255,0.1)">${vn.duration}</span>
             </td>
             <td class="vn-title-cell">${vn.title}</td>
-            <td>
-              <div class="score-bar-wrap">
-                <div class="score-bar">
-                  <div class="score-bar-fill" style="width: ${barWidth}%"></div>
-                </div>
-                <span class="score-num">${vn.score}</span>
-              </div>
-            </td>
+            <td style="font-size: 0.8rem; letter-spacing: 2px;">${stars}</td>
             <td class="hide-mobile">
               <span class="status-pill ${statusClass}">${vn.status}</span>
             </td>
             <td>
-              ${isLink
-                ? `<a href="${vn.playlist}" target="_blank" rel="noopener" class="playlist-link">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    ${vn.playlistLabel}
-                  </a>`
-                : `<span class="playlist-link" style="opacity:0.4;cursor:default">${vn.playlistLabel}</span>`
-              }
+              <a href="${vn.playlist}" target="_blank" rel="noopener" class="playlist-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                ${vn.playlistLabel}
+              </a>
             </td>
           </tr>
         `;
       }).join("");
     }
-
-    /* ================================================
-       FILTROS: Escuchamos clicks en los botones
-    ================================================ */
-    document.querySelectorAll(".tier-filter-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tier-filter-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        renderTable(btn.dataset.filter);
-      });
-    });
 
     /* ================================================
        NAVBAR MOBILE — Hamburger toggle
