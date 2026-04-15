@@ -4,80 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LocoTiki — Novelas Visuales & Narrativa</title>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-<div class="social-links">
-      <a href="https://youtube.com/@LocoTiki" target="_blank" class="social-btn youtube">
-        <i class="fab fa-youtube"></i> YouTube
-      </a>
-      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn">
-        <i class="fab fa-x-twitter"></i> Twitter
-      </a>
-      <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn">
-        <i class="fab fa-instagram"></i> Instagram
-      </a>
-      <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn">
-        <i class="fas fa-list-ul"></i> MAL
-      </a>
-    </div>
   <style>
     :root {
       --bg-base:      #080b12;
       --bg-layer:     #0d1220;
       --bg-card:      #111827;
       --bg-card-alt:  #0f1a2e;
-      /* TU VERDE DE MARCA EXACTO */
-      --accent-brand: #00bf62; 
+      --accent-brand: #00bf62; /* Tu verde oficial */
       --accent-teal:  #2dd4bf;
-      --accent-rose:  #e07b8a;
       --text-primary: #e8e0d4;
       --text-muted:   #7a8499;
-      --text-dim:     #4a5568;
       --border:       rgba(0, 191, 98, 0.18);
-      --border-soft:  rgba(255,255,255,0.06);
-      --shadow-brand: 0 0 40px rgba(0, 191, 98, 0.12);
       --font-display: 'Cinzel', serif;
       --font-body:    'Lora', serif;
       --font-mono:    'JetBrains Mono', monospace;
-      --radius:       8px;
-      --radius-lg:    16px;
       --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
     }
-    /* --- NUEVAS ANIMACIONES --- */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
 
-    @keyframes scanline {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100%); }
-    }
-
-    /* Efecto de líneas de TV vieja (Scanlines) */
-    body::after {
-      content: ""; position: fixed; inset: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                  linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-      background-size: 100% 3px, 3px 100%; z-index: 10000; pointer-events: none; opacity: 0.3;
-    }
-
-    /* Animación para la máscara Tiki */
-    .hero-image-container img {
-      animation: float 4s ease-in-out infinite;
-      filter: drop-shadow(0 0 25px rgba(0, 191, 98, 0.4));
-    }
-
-    /* Hover con brillo neón para botones */
-    .social-btn:hover, .tier-filter-btn:hover {
-      box-shadow: 0 0 15px var(--accent-brand);
-      text-shadow: 0 0 5px var(--accent-brand);
-    }
-
-    /* Iconos para los badges de tiempo */
-    .time-icon { margin-right: 5px; font-size: 0.8rem; }
-
-    /* RESTAURACIÓN: Textura de grano cinematográfico */
+    /* Reset y Estética VN */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -87,123 +37,75 @@
       line-height: 1.7;
       overflow-x: hidden;
     }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9999; opacity: 0.4;
-    }
 
+    /* Animación de máscara flotando */
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    
     /* Navbar */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 2rem; background: rgba(8,11,18,0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-soft);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .nav-logo { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; color: var(--accent-brand); text-decoration: none; letter-spacing: 0.08em; }
+    .nav-logo { font-family: var(--font-display); font-weight: 900; color: var(--accent-brand); text-decoration: none; font-size: 1.2rem; }
     .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: var(--transition); letter-spacing: 0.15em; }
+    .nav-links a { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: var(--transition); }
     .nav-links a:hover { color: var(--accent-brand); }
 
-    /* Hero Section: Gradientes y Líneas VN */
+    /* Hero */
     #hero {
       min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 7rem 1.5rem 4rem; position: relative; overflow: hidden;
+      text-align: center; padding: 7rem 1.5rem 4rem; position: relative;
     }
-    #hero::before {
-      content: ''; position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0, 191, 98, 0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(45,212,191,0.05) 0%, transparent 60%);
-      pointer-events: none;
+    .hero-image-container img {
+      width: 160px; height: auto; animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(0, 191, 98, 0.4));
     }
-    .vn-lines { position: absolute; inset: 0; pointer-events: none; }
-    .vn-lines::before, .vn-lines::after {
-      content: ''; position: absolute; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent-brand), transparent); opacity: 0.2;
-    }
-    .vn-lines::before { top: 25%; } .vn-lines::after { bottom: 25%; }
-
-    .hero-badge {
-      display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase;
-      letter-spacing: 0.25em; color: var(--accent-brand); border: 1px solid rgba(0, 191, 98, 0.3);
-      padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.8rem; animation: fadeUp 0.8s ease both;
-    }
-    .hero-logo { font-family: var(--font-display); font-weight: 900; font-size: clamp(3.5rem, 12vw, 8rem); line-height: 1; color: var(--text-primary); animation: fadeUp 0.8s 0.1s ease both; }
-    .hero-logo span { color: var(--accent-brand); text-shadow: 0 0 40px rgba(0, 191, 98, 0.4); }
-    .hero-subtitle { font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent-brand); margin-top: 0.5rem; animation: fadeUp 0.8s 0.2s ease both; font-weight: 700; }
+    .hero-logo { font-family: var(--font-display); font-weight: 900; font-size: clamp(3.5rem, 12vw, 8rem); color: var(--text-primary); }
+    .hero-logo span { color: var(--accent-brand); text-shadow: 0 0 30px rgba(0, 191, 98, 0.5); }
+    .hero-subtitle { font-family: var(--font-display); letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent-brand); font-weight: 700; margin-top: 0.5rem; }
 
     /* Redes Sociales */
-    .social-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; animation: fadeUp 0.8s 0.4s ease both; }
+    .social-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
     .social-btn {
-      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.4rem; border-radius: var(--radius);
-      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; text-decoration: none; transition: var(--transition); border: 1px solid transparent;
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.4rem; border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; text-decoration: none; transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.1); color: #fff; background: rgba(255,255,255,0.03);
     }
-    .social-btn.youtube { background: rgba(255,0,0,0.1); border-color: rgba(255,0,0,0.3); color: #ff6b6b; }
-    .social-btn.twitter { background: rgba(29,161,242,0.1); border-color: rgba(29,161,242,0.3); color: #1da1f2; }
-    .social-btn.instagram { background: rgba(225,48,108,0.1); border-color: rgba(225,48,108,0.3); color: #e1306c; }
-    .social-btn.mal { background: rgba(46,76,157,0.1); border-color: rgba(46,76,157,0.3); color: #2e4c9d; }
-    .social-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+    .social-btn:hover { transform: translateY(-3px); border-color: var(--accent-brand); box-shadow: 0 0 15px var(--accent-brand); }
+    .social-btn.youtube:hover { color: #ff6b6b; border-color: #ff6b6b; }
 
-    /* Database y Tabla */
+    /* Tabla y Secciones */
     section { padding: 6rem 1.5rem; }
     .container { max-width: 1100px; margin: 0 auto; }
-    .section-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent-brand); margin-bottom: 0.6rem; }
-    .section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; color: var(--text-primary); margin-bottom: 2rem; }
+    .section-title { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 2rem; }
     .section-title span { color: var(--accent-brand); }
 
-    .tier-controls { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .tier-controls { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
     .tier-filter-btn {
-      font-family: var(--font-mono); font-size: 0.7rem; padding: 0.4rem 1rem; border-radius: 100px; border: 1px solid var(--border-soft);
-      background: transparent; color: var(--text-muted); cursor: pointer; transition: var(--transition);
+      padding: 0.5rem 1rem; border-radius: 100px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-muted); cursor: pointer; transition: var(--transition); font-family: var(--font-mono); font-size: 0.7rem;
     }
-    .tier-filter-btn.active, .tier-filter-btn:hover { border-color: var(--accent-brand); color: var(--accent-brand); background: rgba(0, 191, 98, 0.07); }
+    .tier-filter-btn.active, .tier-filter-btn:hover { border-color: var(--accent-brand); color: var(--accent-brand); background: rgba(0, 191, 98, 0.05); }
 
-    .tier-table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--bg-layer); }
+    .tier-table-wrapper { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-layer); }
     .tier-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-    .tier-table th { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-dim); padding: 1rem 1.2rem; text-align: left; background: var(--bg-card); border-bottom: 1px solid var(--border); text-transform: uppercase; }
-    .tier-table td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border-soft); }
+    .tier-table td, .tier-table th { padding: 1.2rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.04); }
     
-    .status-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; padding: 0.25rem 0.7rem; border-radius: 100px; }
-    .status-done { background: rgba(0, 191, 98, 0.1); color: var(--accent-brand); border: 1px solid var(--border); }
+    .status-pill { padding: 0.25rem 0.7rem; border-radius: 100px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; }
+    .status-done { background: rgba(0, 191, 98, 0.1); color: var(--accent-brand); }
     .status-ongoing { background: rgba(251,191,36,0.1); color: #fbbf24; }
     .status-pending { background: rgba(148,163,184,0.1); color: #94a3b8; }
 
-    /* Playlists */
-    .playlist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-    .playlist-card { background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition); }
-    .playlist-card:hover { border-color: var(--accent-brand); transform: translateY(-5px); box-shadow: var(--shadow-brand); }
-    .card-thumbnail { aspect-ratio: 16/9; position: relative; overflow: hidden; background: #000; }
-    .card-thumbnail img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: var(--transition); }
-    .playlist-card:hover img { opacity: 1; transform: scale(1.05); }
-    .card-body { padding: 1.5rem; }
-    .card-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-brand); text-transform: uppercase; margin-bottom: 0.5rem; }
-    .card-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; font-style: italic; }
-    .card-cta { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-brand); text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; border-bottom: 1px solid var(--accent-brand); transition: var(--transition); }
-    .card-cta:hover { gap: 0.8rem; }
-
-    /* Escritura (Wattpad) */
-    .lit-card { background: var(--bg-card-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 3rem; max-width: 750px; position: relative; overflow: hidden; }
-    .lit-card::before { content: '"'; position: absolute; top: -1rem; left: 1.5rem; font-family: var(--font-display); font-size: 12rem; color: var(--accent-brand); opacity: 0.05; }
-    .lit-card::after { content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 4px; background: linear-gradient(180deg, var(--accent-brand), var(--accent-teal)); }
-    .lit-title { font-family: var(--font-display); font-size: 1.8rem; font-style: italic; color: var(--accent-brand); margin-bottom: 0.6rem; }
-
-    /* Animaciones */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .reveal { opacity: 0; transform: translateY(24px); transition: 0.7s ease; }
+    /* Animaciones de aparición */
+    .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      section { padding: 4rem 1.2rem; }
-      .hero-logo { font-size: 3.8rem; }
-    }
-    
   </style>
 </head>
 <body>
 
-  <nav id="navbar">
+  <nav>
     <a href="#" class="nav-logo">LocoTiki</a>
     <ul class="nav-links">
       <li><a href="#tierlist">Database</a></li>
@@ -213,35 +115,28 @@
   </nav>
 
   <section id="hero">
-    <div class="vn-lines"></div>
-    <div class="hero-badge">✦ Canal de Novelas Visuales</div>
-    <div class="hero-image-container" style="margin-bottom: 2rem; animation: fadeUp 0.8s ease both; display: flex; justify-content: center;">
-      <img src="images.jfif" alt="Máscara LocoTiki" style="width: 155px; height: auto; filter: drop-shadow(0 0 20px rgba(0,191,98,0.4));">
+    <div class="hero-image-container" style="margin-bottom: 2rem;">
+      <img src="images.jfif" alt="Máscara LocoTiki">
     </div>
     <h1 class="hero-logo">Loco<span>Tiki</span></h1>
     <p class="hero-subtitle">Let's Plays · Narrativa · Visual Novels</p>
-    
+
     <div class="social-links">
-      <a href="https://youtube.com/@LocoTiki" target="_blank" class="social-btn youtube">YouTube</a>
-      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn twitter">X / Twitter</a>
-      <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn instagram">Instagram</a>
-      <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn mal">MAL Profile</a>
+      <a href="https://youtube.com/@LocoTiki" target="_blank" class="social-btn youtube"><i class="fab fa-youtube"></i> YouTube</a>
+      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn"><i class="fab fa-x-twitter"></i> Twitter</a>
+      <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn"><i class="fas fa-list"></i> MAL</a>
     </div>
-    <div class="scroll-hint" style="position:absolute; bottom:2rem; animation: bounce 2s infinite; color:var(--accent-brand); font-size:1.5rem;">↓</div>
   </section>
 
   <section id="tierlist">
     <div class="container">
-      <div class="reveal">
-        <p class="section-label">📖 Mi Catálogo</p>
-        <h2 class="section-title">Visual Novel <span>Database</span></h2>
-        <p style="color:var(--text-muted); margin-bottom:2rem; font-style:italic;">Filtrado por duración de lectura y estado de la serie.</p>
-      </div>
+      <h2 class="section-title">Visual Novel <span>Database</span></h2>
       <div class="tier-controls reveal">
         <button class="tier-filter-btn active" data-filter="all">Todas</button>
-        <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas (&lt;5h)</button>
-        <button class="tier-filter-btn" data-filter="Media">⏳ Medias (5-20h)</button>
-        <button class="tier-filter-btn" data-filter="Larga">⏳ Largas (&gt;20h)</button>
+        <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas</button>
+        <button class="tier-filter-btn" data-filter="Media">⏳ Medias</button>
+        <button class="tier-filter-btn" data-filter="Larga">⏳ Largas</button>
         <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
         <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
         <button class="tier-filter-btn" data-filter="Dropeada">✕ Dropeadas</button>
@@ -249,7 +144,7 @@
       <div class="tier-table-wrapper reveal">
         <table class="tier-table">
           <thead>
-            <tr><th>Tiempo</th><th>Título</th><th>Puntaje</th><th>Estado</th><th>Playlist</th></tr>
+            <tr><th>Tiempo</th><th>Título</th><th>Puntaje</th><th>Estado</th><th>Enlace</th></tr>
           </thead>
           <tbody id="vnTableBody"></tbody>
         </table>
@@ -257,117 +152,60 @@
     </div>
   </section>
 
-  <section id="playlists">
-    <div class="container">
-      <div class="reveal">
-        <p class="section-label">🎬 Series Destacadas</p>
-        <h2 class="section-title">Playlist <span>Hub</span></h2>
-      </div>
-      <div class="playlist-grid">
-        <article class="playlist-card reveal">
-          <div class="card-thumbnail"><img src="https://img.youtube.com/vi/tDWIB3UYkKA/hqdefault.jpg" alt="Umineko"></div>
-          <div class="card-body">
-            <p class="card-tag">Novela Visual · En curso</p>
-            <h3 class="card-title">Umineko Chiru</h3>
-            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g" target="_blank" class="card-cta">Ver en YouTube →</a>
-          </div>
-        </article>
-        <article class="playlist-card reveal">
-          <div class="card-thumbnail"><img src="https://img.youtube.com/vi/jtTfWjqMrCl/hqdefault.jpg" alt="Ace Attorney"></div>
-          <div class="card-body">
-            <p class="card-tag">Misterio · Completa</p>
-            <h3 class="card-title">Phoenix Wright 1</h3>
-            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6jtTfWjqMrCl7xsLK_IP0w4" target="_blank" class="card-cta">Ver en YouTube →</a>
-          </div>
-        </article>
-        <article class="playlist-card reveal">
-          <div class="card-thumbnail"><img src="https://img.youtube.com/vi/r_k0yT_y2hY/hqdefault.jpg" alt="Island Existence"></div>
-          <div class="card-body">
-            <p class="card-tag">YTTD Spin-off · En curso</p>
-            <h3 class="card-title">Island Existence</h3>
-            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6j1um7tF8SKTOCauqLu4Sed" target="_blank" class="card-cta">Ver en YouTube →</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="literaria" style="background:var(--bg-layer);">
-    <div class="container">
-      <div class="lit-card reveal">
-        <p class="lit-title">Entre páginas y miradas</p>
-        <p style="font-style:italic; color:var(--text-muted); line-height:1.8;">
-          Más allá del canal, también escribo. Historias que nacen de los mismos lugares que me atrajeron a las novelas visuales. 
-          Encontralo en Wattpad (aunque esté en pausa) para leer lo que nace fuera de cámaras.
-        </p>
-        <a href="https://www.wattpad.com/user/LocoTiki" target="_blank" style="margin-top:1.5rem; display:inline-block; color:var(--accent-teal); font-family:var(--font-mono); font-size:0.8rem; text-decoration:none;">Ir a Wattpad →</a>
-      </div>
-    </div>
-  </section>
-
-  <footer style="text-align:center; padding:3rem; border-top:1px solid var(--border-soft);">
-    <div style="font-family:var(--font-display); font-size:1.5rem; color:var(--accent-brand); margin-bottom:0.5rem;">LocoTiki</div>
-    <p style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-dim);">© 2026 LocoTiki · Rosario, Argentina</p>
-  </footer>
-
   <script>
     const vnData = [
-      // --- LARGAS (> 20h) ---
-      { title: "Danganronpa 2: Goodbye Despair", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hNmprOWDfzKIKz-j_Uwb_w", playlistLabel: "Ver serie" },
-      { title: "Danganronpa: Trigger Happy Havoc", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iKFa4TrKXohdapO0gtDJ8q", playlistLabel: "Ver serie" },
-      { title: "Phoenix Wright: Ace Attorney", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jtTfWjqMrCl7xsLK_IP0w4", playlistLabel: "Ver serie" },
-      { title: "PW: Trials and Tribulations", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6i8eCbJUfn-d9dqw2IitQb_", playlistLabel: "Ver serie" },
-      { title: "Apollo Justice: Ace Attorney", duration: "Larga", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gvV-ZihyqY0I4fTUGVfUjZ", playlistLabel: "Ver serie" },
-      { title: "Kara no Shoujo", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hruJrMKaKzKiE3NW_5uKEb", playlistLabel: "Ver serie" },
-      { title: "Chaos;Head Noah", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gQYvS6d68wsBurTtxHYR_L", playlistLabel: "Ver serie" },
-      { title: "Zero Escape: Virtue's Last Reward", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gCJ157trYJifVN1ixn8sS-", playlistLabel: "Ver serie" },
-      { title: "Zero Escape: 999", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jdvMw2nhP3BcfZ6xiiHhEg", playlistLabel: "Ver serie" },
-      { title: "The Walking Dead (Telltale)", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6ifaFZ69fzVbixIraRcWylS", playlistLabel: "Ver serie" },
-      { title: "Danganronpa: Ultra Despair Girls", duration: "Larga", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gFLtQKwYLD1TUUJJIRlcxR", playlistLabel: "Ver serie" },
-      { title: "Umineko no naku koro ni Chiru", duration: "Larga", score: 5, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g", playlistLabel: "En curso" },
-      { title: "Himawari - The Sunflower -", duration: "Larga", score: 4, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g", playlistLabel: "En curso" },
+      // --- LARGAS ---
+      { title: "Danganronpa 2: Goodbye Despair", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hNmprOWDfzKIKz-j_Uwb_w" },
+      { title: "Danganronpa: Trigger Happy Havoc", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iKFa4TrKXohdapO0gtDJ8q" },
+      { title: "Phoenix Wright: Ace Attorney", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jtTfWjqMrCl7xsLK_IP0w4" },
+      { title: "PW: Trials and Tribulations", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6i8eCbJUfn-d9dqw2IitQb_" },
+      { title: "Apollo Justice: Ace Attorney", duration: "Larga", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gvV-ZihyqY0I4fTUGVfUjZ" },
+      { title: "Kara no Shoujo", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hruJrMKaKzKiE3NW_5uKEb" },
+      { title: "Chaos;Head Noah", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gQYvS6d68wsBurTtxHYR_L" },
+      { title: "Zero Escape: Virtue's Last Reward", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gCJ157trYJifVN1ixn8sS-" },
+      { title: "Zero Escape: 999", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jdvMw2nhP3BcfZ6xiiHhEg" },
+      { title: "The Walking Dead (Telltale)", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6ifaFZ69fzVbixIraRcWylS" },
+      { title: "Umineko Chiru", duration: "Larga", score: 5, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g" },
+      { title: "Himawari - The Sunflower -", duration: "Larga", score: 4, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g" },
+      
+      // --- MEDIAS ---
+      { title: "PW: Justice For All", duration: "Media", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iaYnvBSLlmfIOXmqxQOP2a" },
+      { title: "Ace Attorney Investigations", duration: "Media", score: 4, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6i_3ZcjGvLrGmasBWC9JEJZ" },
+      { title: "It Takes Two", duration: "Media", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jTsD9ft89a9OW_Ao0BNDay" },
+      { title: "Resident Evil 6", duration: "Media", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gzOzaSVcVO_E7CWWjLDdFp" },
+      { title: "Urban Myth Dissolution Center", duration: "Media", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hmf-XkuXRtqK1UjuunPUvC" },
+      { title: "Beyond Two Souls", duration: "Media", score: 3, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hirImN03rVFyG-0YoXXley" },
 
-      // --- MEDIAS (5h - 20h) ---
-      { title: "PW: Justice For All", duration: "Media", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iaYnvBSLlmfIOXmqxQOP2a", playlistLabel: "Ver serie" },
-      { title: "Ace Attorney Investigations", duration: "Media", score: 4, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6i_3ZcjGvLrGmasBWC9JEJZ", playlistLabel: "En curso" },
-      { title: "It Takes Two", duration: "Media", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jTsD9ft89a9OW_Ao0BNDay", playlistLabel: "Ver serie" },
-      { title: "Resident Evil 6", duration: "Media", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gzOzaSVcVO_E7CWWjLDdFp", playlistLabel: "Ver serie" },
-      { title: "Urban Myth Dissolution Center", duration: "Media", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hmf-XkuXRtqK1UjuunPUvC", playlistLabel: "Ver serie" },
-      { title: "Beyond Two Souls", duration: "Media", score: 3, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hirImN03rVFyG-0YoXXley", playlistLabel: "Dropeada" },
-
-      // --- CORTAS (< 5h) ---
-      { title: "Martial Law", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iuIU4uttoXb908-Ji4IMYb", playlistLabel: "Ver serie" },
-      { title: "Little Nightmares", duration: "Corta", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hOXBNbaMbtsYq896e8lCrG", playlistLabel: "Ver serie" },
-      { title: "Sakura Shrine Girls", duration: "Corta", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jZenk0Z5GY0SoL_nVsGerI", playlistLabel: "Ver serie" },
-      { title: "Sakura Swim Club", duration: "Corta", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hbkxQaosgjHPoIh2HpKMPt", playlistLabel: "Incompleta" },
-      { title: "Shiny Days (Gemelas)", duration: "Corta", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jQYXE9DvssoQQmk2imNOTt", playlistLabel: "Ver serie" },
-      { title: "Shiny Days (Familia)", duration: "Corta", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iFf6sDnipHxq8LKCRUmPGE", playlistLabel: "Ver serie" },
-      { title: "Narcissu", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jDodhaU1InEr41XqHHqOue", playlistLabel: "Ver serie" },
-      { title: "One Thousand Lies", duration: "Corta", score: 3, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iVZntSIRvdNSe0EsKKVbBT", playlistLabel: "Dropeada" },
-      { title: "Narcissu: Side 2nd", duration: "Corta", score: 3, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hrxk0xh0T6t8C0_BplgpaJ", playlistLabel: "Dropeada" },
-      { title: "Mad Father", duration: "Corta", score: 4, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hyAmDaOEYBozA1iJ22f5Lc", playlistLabel: "Dropeada" },
-      { title: "Love At First Sight", duration: "Corta", score: 3, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jzcPltY6NcwKFBr7jpefiR", playlistLabel: "Dropeada" },
-      { title: "Island Existence (YTTD)", duration: "Corta", score: 4, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6j1um7tF8SKTOCauqLu4Sed", playlistLabel: "En curso" },
-      { title: "Tomboy: Annoying Childhood Friend", duration: "Corta", score: 3, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6joQk4bRf0pJsfqH-WhlwiN", playlistLabel: "En curso" }
+      // --- CORTAS ---
+      { title: "Martial Law", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iuIU4uttoXb908-Ji4IMYb" },
+      { title: "Little Nightmares", duration: "Corta", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hOXBNbaMbtsYq896e8lCrG" },
+      { title: "Sakura Swim Club", duration: "Corta", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hbkxQaosgjHPoIh2HpKMPt" },
+      { title: "Shiny Days (Gemelas)", duration: "Corta", score: 3, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jQYXE9DvssoQQmk2imNOTt" },
+      { title: "Narcissu", duration: "Corta", score: 4, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jDodhaU1InEr41XqHHqOue" },
+      { title: "One Thousand Lies", duration: "Corta", score: 3, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6iVZntSIRvdNSe0EsKKVbBT" },
+      { title: "Mad Father", duration: "Corta", score: 4, status: "Dropeada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6hyAmDaOEYBozA1iJ22f5Lc" },
+      { title: "Island Existence (YTTD)", duration: "Corta", score: 4, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6j1um7tF8SKTOCauqLu4Sed" },
+      { title: "Tomboy", duration: "Corta", score: 3, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6joQk4bRf0pJsfqH-WhlwiN" }
     ];
 
-   function renderTable(filter = "all") {
+    function renderTable(filter = "all") {
+      const tbody = document.getElementById("vnTableBody");
+      const filtered = vnData.filter(vn => {
+        if (filter === "all") return true;
+        if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
+        return vn.status === filter;
+      });
       tbody.innerHTML = filtered.map(vn => {
         const statusClass = { "Terminada": "status-done", "En curso": "status-ongoing", "Dropeada": "status-pending" }[vn.status] || "status-pending";
-        
-        // Icono según duración
-        let timeIcon = "fa-clock";
-        if (vn.duration === "Corta") timeIcon = "fa-bolt";
-        if (vn.duration === "Larga") timeIcon = "fa-hourglass-half";
-
         return `<tr>
-          <td><span class="status-pill ${statusClass}"><i class="fas ${timeIcon} time-icon"></i>${vn.duration}</span></td>
-          <td style="font-weight:600; font-style:italic;">${vn.title}</td>
-          <td style="letter-spacing:2px; color:var(--accent-brand);">${"⭐".repeat(vn.score)}</td>
+          <td><span class="status-pill ${statusClass}">${vn.duration}</span></td>
+          <td style="font-weight:600">${vn.title}</td>
+          <td style="color:var(--accent-brand)">${"⭐".repeat(vn.score)}</td>
           <td><span class="status-pill ${statusClass}">${vn.status}</span></td>
-          <td><a href="${vn.playlist}" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:700;">Ver <i class="fas fa-external-link-alt" style="font-size:0.7rem"></i></a></td>
+          <td><a href="${vn.playlist}" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:700">Ver →</a></td>
         </tr>`;
       }).join("");
+    }
 
     document.querySelectorAll(".tier-filter-btn").forEach(btn => {
       btn.addEventListener("click", () => {
