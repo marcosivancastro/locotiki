@@ -4,11 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LocoTiki — Novelas Visuales & Narrativa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-
+<div class="social-links">
+      <a href="https://youtube.com/@LocoTiki" target="_blank" class="social-btn youtube">
+        <i class="fab fa-youtube"></i> YouTube
+      </a>
+      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn">
+        <i class="fab fa-x-twitter"></i> Twitter
+      </a>
+      <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn">
+        <i class="fas fa-list-ul"></i> MAL
+      </a>
+    </div>
   <style>
     :root {
       --bg-base:      #080b12;
@@ -32,6 +43,39 @@
       --radius-lg:    16px;
       --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
     }
+    /* --- NUEVAS ANIMACIONES --- */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* Efecto de líneas de TV vieja (Scanlines) */
+    body::after {
+      content: ""; position: fixed; inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 3px, 3px 100%; z-index: 10000; pointer-events: none; opacity: 0.3;
+    }
+
+    /* Animación para la máscara Tiki */
+    .hero-image-container img {
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(0, 191, 98, 0.4));
+    }
+
+    /* Hover con brillo neón para botones */
+    .social-btn:hover, .tier-filter-btn:hover {
+      box-shadow: 0 0 15px var(--accent-brand);
+      text-shadow: 0 0 5px var(--accent-brand);
+    }
+
+    /* Iconos para los badges de tiempo */
+    .time-icon { margin-right: 5px; font-size: 0.8rem; }
 
     /* RESTAURACIÓN: Textura de grano cinematográfico */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -154,6 +198,7 @@
       section { padding: 4rem 1.2rem; }
       .hero-logo { font-size: 3.8rem; }
     }
+    
   </style>
 </head>
 <body>
@@ -307,23 +352,22 @@
     ];
 
    function renderTable(filter = "all") {
-      const tbody = document.getElementById("vnTableBody");
-      const filtered = vnData.filter(vn => {
-        if (filter === "all") return true;
-        if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
-        return vn.status === filter;
-      });
       tbody.innerHTML = filtered.map(vn => {
         const statusClass = { "Terminada": "status-done", "En curso": "status-ongoing", "Dropeada": "status-pending" }[vn.status] || "status-pending";
+        
+        // Icono según duración
+        let timeIcon = "fa-clock";
+        if (vn.duration === "Corta") timeIcon = "fa-bolt";
+        if (vn.duration === "Larga") timeIcon = "fa-hourglass-half";
+
         return `<tr>
-          <td><span class="status-pill ${statusClass}" style="border:1px solid rgba(255,255,255,0.05)">${vn.duration}</span></td>
+          <td><span class="status-pill ${statusClass}"><i class="fas ${timeIcon} time-icon"></i>${vn.duration}</span></td>
           <td style="font-weight:600; font-style:italic;">${vn.title}</td>
-          <td style="letter-spacing:2px;">${"⭐".repeat(vn.score)}</td>
+          <td style="letter-spacing:2px; color:var(--accent-brand);">${"⭐".repeat(vn.score)}</td>
           <td><span class="status-pill ${statusClass}">${vn.status}</span></td>
-          <td><a href="${vn.playlist}" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:700;">Ver →</a></td>
+          <td><a href="${vn.playlist}" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:700;">Ver <i class="fas fa-external-link-alt" style="font-size:0.7rem"></i></a></td>
         </tr>`;
       }).join("");
-    }
 
     document.querySelectorAll(".tier-filter-btn").forEach(btn => {
       btn.addEventListener("click", () => {
