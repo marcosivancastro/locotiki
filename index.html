@@ -824,25 +824,26 @@
   <!-- ================================================
        HERO SECTION
   ================================================ -->
-  <section id="hero">
+ <section id="hero">
     <div class="vn-lines"></div>
 
     <div class="hero-badge">✦ Canal de Novelas Visuales</div>
 
+    <div class="hero-image-container" style="margin-bottom: 2rem; animation: fadeUp 0.8s ease both; display: flex; justify-content: center;">
+      <img src="images.jfif" alt="Máscara LocoTiki" style="width: 150px; height: auto; filter: drop-shadow(0 0 20px rgba(201,168,76,0.35));">
+    </div>
+
     <h1 class="hero-logo">Loco<span>Tiki</span></h1>
     <p class="hero-subtitle">Let's Plays · Narrativa · Visual Novels</p>
-<div class="hero-image-container" style="margin-bottom: 2rem; animation: fadeUp 0.8s ease both; display: flex; justify-content: center;">
-  <img src="948d35ff9ec8060ae064a0b54e669d09.png" alt="Máscara LocoTiki" style="width: 150px; height: auto; filter: drop-shadow(0 0 15px rgba(201,168,76,0.3));">
-</div>
+
     <p class="hero-bio">
-      25 años, estudiante de Marketing y narrador apasionado de historias.
+      25 años, estudiante de Marketing y narrador apasionado de historias en Rosario.
       Subo Let's Plays narrados de Novelas Visuales donde la historia importa tanto
       como los momentos que te deja.
     </p>
 
     <div class="social-links">
       <a href="https://youtube.com/@LocoTiki" target="_blank" rel="noopener" class="social-btn youtube">
-        <!-- Ícono YouTube inline SVG -->
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
         YouTube
       </a>
@@ -850,15 +851,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4v8h2V8H6zm4 0v8h2V8h-2zm4 0l2 5 2-5h-2l-1 3-1-3h-2z"/></svg>
         Wattpad
       </a>
-      <a href="https://twitter.com/LocoTiki" target="_blank" rel="noopener" class="social-btn twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1h3.7l-8 9.2L24 23h-7.4l-5.8-7.5L4.4 23H.7l8.6-9.8L0 1h7.6l5.2 6.8L18.9 1zm-1.3 19.8h2L6.5 3.2H4.3l13.3 17.6z"/></svg>
-        Twitter / X
-      </a>
     </div>
 
     <div class="scroll-hint">↓</div>
   </section>
-
   <!-- ================================================
        TIER LIST DE VISUAL NOVELS
   ================================================ -->
@@ -875,15 +871,15 @@
       </div>
 
       <!-- Botones de filtro -->
-      <div class="tier-controls reveal">
-       <button class="tier-filter-btn active" data-filter="all">Todas</button>
-       <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas (&lt; 5h)</button>
-       <button class="tier-filter-btn" data-filter="Media">⏳ Medias (5-20h)</button>
-       <button class="tier-filter-btn" data-filter="Larga">⏳ Largas (&gt; 20h)</button>
-       <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
-       <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
-       <button class="tier-filter-btn" data-filter="Dropeada">✕ Dropeadas</button>
-    </div>
+     <div class="tier-controls reveal">
+        <button class="tier-filter-btn active" data-filter="all">Todas</button>
+        <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas (&lt; 5h)</button>
+        <button class="tier-filter-btn" data-filter="Media">⏳ Medias (5-20h)</button>
+        <button class="tier-filter-btn" data-filter="Larga">⏳ Largas (&gt; 20h)</button>
+        <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
+        <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
+        <button class="tier-filter-btn" data-filter="Dropeada">✕ Dropeadas</button>
+      </div>
 
       <!-- Tabla -->
       <div class="tier-table-wrapper reveal">
@@ -1060,7 +1056,7 @@
     /* ================================================
        DATOS DE LA TIER LIST (Sincronizados)
     ================================================ */
-    const vnData = [
+const vnData = [
       { title: "Chaos;Head Noah", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gQYvS6d68wsBurTtxHYR_L", playlistLabel: "Ver serie" },
       { title: "Zero Escape: Virtue's Last Reward", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6gCJ157trYJifVN1ixn8sS-", playlistLabel: "Ver serie" },
       { title: "Zero Escape: 999", duration: "Larga", score: 5, status: "Terminada", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jdvMw2nhP3BcfZ6xiiHhEg", playlistLabel: "Ver serie" },
@@ -1078,83 +1074,38 @@
       { title: "Kimi ga Shine (Your Turn To Die)", duration: "Larga", score: 5, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6jZzXmzmyxlAQTQ-AYhIC5h", playlistLabel: "Ver serie" }
     ];
 
-    /* ================================================
-       FUNCIÓN QUE DIBUJA LA TABLA
-    ================================================ */
     function renderTable(filter = "all") {
       const tbody = document.getElementById("vnTableBody");
-
+      if(!tbody) return;
       const filtered = vnData.filter(vn => {
         if (filter === "all") return true;
-        // Si el filtro es una duración (Corta, Media, Larga)
         if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
-        // Si no, busca por el estado (Terminada, En curso, Dropeada)
         return vn.status === filter;
       });
-
       tbody.innerHTML = filtered.map(vn => {
-        const statusClass = {
-          "Terminada": "status-done",
-          "En curso":  "status-ongoing",
-          "Dropeada":  "status-pending",
-          "Pendiente": "status-pending"
-        }[vn.status] || "status-pending";
-
+        const statusClass = { "Terminada": "status-done", "En curso": "status-ongoing", "Dropeada": "status-pending" }[vn.status] || "status-pending";
         const stars = "⭐".repeat(vn.score);
-
-        return `
-          <tr>
-            <td>
-              <span class="status-pill ${statusClass}" style="border:1px solid rgba(255,255,255,0.1)">${vn.duration}</span>
-            </td>
-            <td class="vn-title-cell">${vn.title}</td>
-            <td style="font-size: 0.8rem; letter-spacing: 2px;">${stars}</td>
-            <td class="hide-mobile">
-              <span class="status-pill ${statusClass}">${vn.status}</span>
-            </td>
-            <td>
-              <a href="${vn.playlist}" target="_blank" rel="noopener" class="playlist-link">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                ${vn.playlistLabel}
-              </a>
-            </td>
-          </tr>
-        `;
+        return `<tr><td><span class="status-pill ${statusClass}" style="border:1px solid rgba(255,255,255,0.1)">${vn.duration}</span></td><td class="vn-title-cell">${vn.title}</td><td style="font-size: 0.8rem; letter-spacing: 2px;">${stars}</td><td class="hide-mobile"><span class="status-pill ${statusClass}">${vn.status}</span></td><td><a href="${vn.playlist}" target="_blank" rel="noopener" class="playlist-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>${vn.playlistLabel}</a></td></tr>`;
       }).join("");
     }
 
-    /* ================================================
-       EVENTOS Y FILTROS
-    ================================================ */
-    // Escuchamos los clicks en los botones de la Tier List
     document.querySelectorAll(".tier-filter-btn").forEach(btn => {
       btn.addEventListener("click", () => {
-        // Quitamos la clase active de todos y se la damos al que clickeamos
         document.querySelectorAll(".tier-filter-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-        // Mandamos el valor de 'data-filter' a la función
         renderTable(btn.dataset.filter);
       });
     });
 
-    // Mobile Navbar Toggle
     const navToggle = document.getElementById("navToggle");
-    const navLinks  = document.getElementById("navLinks");
-    if(navToggle) {
-        navToggle.addEventListener("click", () => navLinks.classList.toggle("open"));
-    }
-    function closeNav() { navLinks.classList.remove("open"); }
+    const navLinks = document.getElementById("navLinks");
+    if(navToggle) { navToggle.addEventListener("click", () => navLinks.classList.toggle("open")); }
+    function closeNav() { if(navLinks) navLinks.classList.remove("open"); }
 
-    // Scroll Reveal
     const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          revealObserver.unobserve(entry.target);
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("visible"); revealObserver.unobserve(entry.target); } });
     }, { threshold: 0.1 });
     document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
-    // Inicializar tabla
     renderTable();
+  </script>
