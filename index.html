@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LocoTiki — Novelas Visuales & Narrativa</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -14,13 +14,17 @@
       --bg-base:      #080b12;
       --bg-layer:     #0d1220;
       --bg-card:      #111827;
-      /* TU VERDE DE MARCA: #00bf62 */
+      --bg-card-alt:  #0f1a2e;
+      /* TU VERDE DE MARCA EXACTO */
       --accent-brand: #00bf62; 
       --accent-teal:  #2dd4bf;
       --accent-rose:  #e07b8a;
       --text-primary: #e8e0d4;
       --text-muted:   #7a8499;
-      --border:       rgba(0, 191, 98, 0.2);
+      --text-dim:     #4a5568;
+      --border:       rgba(0, 191, 98, 0.18);
+      --border-soft:  rgba(255,255,255,0.06);
+      --shadow-brand: 0 0 40px rgba(0, 191, 98, 0.12);
       --font-display: 'Cinzel', serif;
       --font-body:    'Lora', serif;
       --font-mono:    'JetBrains Mono', monospace;
@@ -29,6 +33,7 @@
       --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
     }
 
+    /* RESTAURACIÓN: Textura de grano cinematográfico */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -38,111 +43,160 @@
       line-height: 1.7;
       overflow-x: hidden;
     }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
 
+    /* Navbar */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 2rem; background: rgba(8,11,18,0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid var(--border-soft);
     }
-    .nav-logo { font-family: var(--font-display); font-weight: 900; color: var(--accent-brand); text-decoration: none; font-size: 1.2rem; }
+    .nav-logo { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; color: var(--accent-brand); text-decoration: none; letter-spacing: 0.08em; }
     .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+    .nav-links a { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: var(--transition); letter-spacing: 0.15em; }
     .nav-links a:hover { color: var(--accent-brand); }
 
+    /* Hero Section: Gradientes y Líneas VN */
     #hero {
       min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; padding: 7rem 1.5rem 4rem; position: relative; overflow: hidden;
     }
-    .hero-logo { font-family: var(--font-display); font-weight: 900; font-size: clamp(3.5rem, 12vw, 8rem); color: var(--text-primary); margin-bottom: 0.5rem; }
-    .hero-logo span { color: var(--accent-brand); text-shadow: 0 0 25px rgba(0, 191, 98, 0.5), 0 0 50px rgba(0, 191, 98, 0.2); }
-    .hero-subtitle { font-family: var(--font-display); letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent-brand); font-weight: 700; font-size: 0.9rem; }
-
-    .social-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem; }
-    .social-btn {
-      display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1.5rem; border-radius: var(--radius);
-      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: var(--transition);
-      border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #fff;
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0, 191, 98, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(45,212,191,0.05) 0%, transparent 60%);
+      pointer-events: none;
     }
-    .social-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); border-color: var(--accent-brand); }
-    .social-btn.youtube:hover { color: #ff4d4d; border-color: #ff4d4d; }
+    .vn-lines { position: absolute; inset: 0; pointer-events: none; }
+    .vn-lines::before, .vn-lines::after {
+      content: ''; position: absolute; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-brand), transparent); opacity: 0.2;
+    }
+    .vn-lines::before { top: 25%; } .vn-lines::after { bottom: 25%; }
 
-    section { padding: 8rem 1.5rem; }
+    .hero-badge {
+      display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 0.25em; color: var(--accent-brand); border: 1px solid rgba(0, 191, 98, 0.3);
+      padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.8rem; animation: fadeUp 0.8s ease both;
+    }
+    .hero-logo { font-family: var(--font-display); font-weight: 900; font-size: clamp(3.5rem, 12vw, 8rem); line-height: 1; color: var(--text-primary); animation: fadeUp 0.8s 0.1s ease both; }
+    .hero-logo span { color: var(--accent-brand); text-shadow: 0 0 40px rgba(0, 191, 98, 0.4); }
+    .hero-subtitle { font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent-brand); margin-top: 0.5rem; animation: fadeUp 0.8s 0.2s ease both; font-weight: 700; }
+
+    /* Redes Sociales */
+    .social-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; animation: fadeUp 0.8s 0.4s ease both; }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.4rem; border-radius: var(--radius);
+      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; text-decoration: none; transition: var(--transition); border: 1px solid transparent;
+    }
+    .social-btn.youtube { background: rgba(255,0,0,0.1); border-color: rgba(255,0,0,0.3); color: #ff6b6b; }
+    .social-btn.twitter { background: rgba(29,161,242,0.1); border-color: rgba(29,161,242,0.3); color: #1da1f2; }
+    .social-btn.instagram { background: rgba(225,48,108,0.1); border-color: rgba(225,48,108,0.3); color: #e1306c; }
+    .social-btn.mal { background: rgba(46,76,157,0.1); border-color: rgba(46,76,157,0.3); color: #2e4c9d; }
+    .social-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+    /* Database y Tabla */
+    section { padding: 6rem 1.5rem; }
     .container { max-width: 1100px; margin: 0 auto; }
-    .section-title { font-family: var(--font-display); font-size: 2.5rem; color: var(--text-primary); margin-bottom: 3rem; }
+    .section-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent-brand); margin-bottom: 0.6rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; color: var(--text-primary); margin-bottom: 2rem; }
     .section-title span { color: var(--accent-brand); }
 
-    .tier-controls { margin-bottom: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .tier-filter-btn { padding: 0.6rem 1.2rem; border-radius: 100px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; transition: var(--transition); font-family: var(--font-mono); font-size: 0.75rem; }
-    .tier-filter-btn.active, .tier-filter-btn:hover { border-color: var(--accent-brand); color: var(--accent-brand); background: rgba(0, 191, 98, 0.08); }
+    .tier-controls { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .tier-filter-btn {
+      font-family: var(--font-mono); font-size: 0.7rem; padding: 0.4rem 1rem; border-radius: 100px; border: 1px solid var(--border-soft);
+      background: transparent; color: var(--text-muted); cursor: pointer; transition: var(--transition);
+    }
+    .tier-filter-btn.active, .tier-filter-btn:hover { border-color: var(--accent-brand); color: var(--accent-brand); background: rgba(0, 191, 98, 0.07); }
 
     .tier-table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--bg-layer); }
-    .tier-table { width: 100%; border-collapse: collapse; min-width: 600px; }
-    .tier-table th { background: rgba(255,255,255,0.02); color: var(--text-muted); font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
-    .tier-table td, .tier-table th { padding: 1.2rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .tier-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .tier-table th { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-dim); padding: 1rem 1.2rem; text-align: left; background: var(--bg-card); border-bottom: 1px solid var(--border); text-transform: uppercase; }
+    .tier-table td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border-soft); }
     
-    .status-pill { padding: 0.3rem 0.8rem; border-radius: 100px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; display: inline-block; }
+    .status-pill { display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; padding: 0.25rem 0.7rem; border-radius: 100px; }
     .status-done { background: rgba(0, 191, 98, 0.1); color: var(--accent-brand); border: 1px solid var(--border); }
-    .status-ongoing { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
-    .status-pending { background: rgba(148,163,184,0.1); color: #94a3b8; border: 1px solid rgba(148,163,184,0.2); }
+    .status-ongoing { background: rgba(251,191,36,0.1); color: #fbbf24; }
+    .status-pending { background: rgba(148,163,184,0.1); color: #94a3b8; }
 
+    /* Playlists */
     .playlist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-    .playlist-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition); }
-    .playlist-card:hover { border-color: var(--accent-brand); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .card-thumbnail { aspect-ratio: 16/9; overflow: hidden; position: relative; background: #000; }
+    .playlist-card { background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition); }
+    .playlist-card:hover { border-color: var(--accent-brand); transform: translateY(-5px); box-shadow: var(--shadow-brand); }
+    .card-thumbnail { aspect-ratio: 16/9; position: relative; overflow: hidden; background: #000; }
     .card-thumbnail img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: var(--transition); }
     .playlist-card:hover img { opacity: 1; transform: scale(1.05); }
-    .card-body { padding: 1.8rem; }
-    .card-tag { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-brand); text-transform: uppercase; margin-bottom: 0.8rem; letter-spacing: 1px; }
-    .card-title { font-family: var(--font-display); font-size: 1.3rem; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.3; }
-    .card-cta { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-brand); text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; transition: var(--transition); }
+    .card-body { padding: 1.5rem; }
+    .card-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-brand); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .card-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; font-style: italic; }
+    .card-cta { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-brand); text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; border-bottom: 1px solid var(--accent-brand); transition: var(--transition); }
     .card-cta:hover { gap: 0.8rem; }
 
-    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    /* Escritura (Wattpad) */
+    .lit-card { background: var(--bg-card-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 3rem; max-width: 750px; position: relative; overflow: hidden; }
+    .lit-card::before { content: '"'; position: absolute; top: -1rem; left: 1.5rem; font-family: var(--font-display); font-size: 12rem; color: var(--accent-brand); opacity: 0.05; }
+    .lit-card::after { content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 4px; background: linear-gradient(180deg, var(--accent-brand), var(--accent-teal)); }
+    .lit-title { font-family: var(--font-display); font-size: 1.8rem; font-style: italic; color: var(--accent-brand); margin-bottom: 0.6rem; }
+
+    /* Animaciones */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      section { padding: 5rem 1.2rem; }
-      .hero-logo { font-size: 3.5rem; }
+      section { padding: 4rem 1.2rem; }
+      .hero-logo { font-size: 3.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
+  <nav id="navbar">
     <a href="#" class="nav-logo">LocoTiki</a>
     <ul class="nav-links">
-      <li><a href="#tierlist">Tier List</a></li>
+      <li><a href="#tierlist">Database</a></li>
       <li><a href="#playlists">Playlists</a></li>
       <li><a href="https://myanimelist.net/profile/LocoTiki" target="_blank">MAL</a></li>
     </ul>
   </nav>
 
   <section id="hero">
-    <div class="hero-image-container" style="margin-bottom: 2.5rem; display: flex; justify-content: center;">
-      <img src="images.jfif" alt="Máscara LocoTiki" style="width: 160px; height: auto; filter: drop-shadow(0 0 25px rgba(0,191,98,0.4));">
+    <div class="vn-lines"></div>
+    <div class="hero-badge">✦ Canal de Novelas Visuales</div>
+    <div class="hero-image-container" style="margin-bottom: 2rem; animation: fadeUp 0.8s ease both; display: flex; justify-content: center;">
+      <img src="images.jfif" alt="Máscara LocoTiki" style="width: 155px; height: auto; filter: drop-shadow(0 0 20px rgba(0,191,98,0.4));">
     </div>
     <h1 class="hero-logo">Loco<span>Tiki</span></h1>
     <p class="hero-subtitle">Let's Plays · Narrativa · Visual Novels</p>
-
+    
     <div class="social-links">
       <a href="https://youtube.com/@LocoTiki" target="_blank" class="social-btn youtube">YouTube</a>
-      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn">X / Twitter</a>
-      <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn">Instagram</a>
-      <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn">MyAnimeList</a>
+      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn twitter">X / Twitter</a>
+      <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn instagram">Instagram</a>
+      <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn mal">MAL Profile</a>
     </div>
+    <div class="scroll-hint" style="position:absolute; bottom:2rem; animation: bounce 2s infinite; color:var(--accent-brand); font-size:1.5rem;">↓</div>
   </section>
 
   <section id="tierlist">
     <div class="container">
-      <h2 class="section-title">Visual Novel <span>Database</span></h2>
+      <div class="reveal">
+        <p class="section-label">📖 Mi Catálogo</p>
+        <h2 class="section-title">Visual Novel <span>Database</span></h2>
+        <p style="color:var(--text-muted); margin-bottom:2rem; font-style:italic;">Filtrado por duración de lectura y estado de la serie.</p>
+      </div>
       <div class="tier-controls reveal">
         <button class="tier-filter-btn active" data-filter="all">Todas</button>
-        <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas</button>
-        <button class="tier-filter-btn" data-filter="Media">⏳ Medias</button>
-        <button class="tier-filter-btn" data-filter="Larga">⏳ Largas</button>
+        <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas (&lt;5h)</button>
+        <button class="tier-filter-btn" data-filter="Media">⏳ Medias (5-20h)</button>
+        <button class="tier-filter-btn" data-filter="Larga">⏳ Largas (&gt;20h)</button>
         <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
         <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
         <button class="tier-filter-btn" data-filter="Dropeada">✕ Dropeadas</button>
@@ -150,7 +204,7 @@
       <div class="tier-table-wrapper reveal">
         <table class="tier-table">
           <thead>
-            <tr><th>Tiempo</th><th>Título</th><th>Puntaje</th><th>Estado</th><th>Enlace</th></tr>
+            <tr><th>Tiempo</th><th>Título</th><th>Puntaje</th><th>Estado</th><th>Playlist</th></tr>
           </thead>
           <tbody id="vnTableBody"></tbody>
         </table>
@@ -160,27 +214,56 @@
 
   <section id="playlists">
     <div class="container">
-      <h2 class="section-title">Playlist <span>Hub</span></h2>
+      <div class="reveal">
+        <p class="section-label">🎬 Series Destacadas</p>
+        <h2 class="section-title">Playlist <span>Hub</span></h2>
+      </div>
       <div class="playlist-grid">
         <article class="playlist-card reveal">
           <div class="card-thumbnail"><img src="https://img.youtube.com/vi/tDWIB3UYkKA/hqdefault.jpg" alt="Umineko"></div>
           <div class="card-body">
             <p class="card-tag">Novela Visual · En curso</p>
-            <h3 class="card-title">Umineko no naku koro ni Chiru</h3>
+            <h3 class="card-title">Umineko Chiru</h3>
             <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g" target="_blank" class="card-cta">Ver en YouTube →</a>
           </div>
         </article>
         <article class="playlist-card reveal">
           <div class="card-thumbnail"><img src="https://img.youtube.com/vi/jtTfWjqMrCl/hqdefault.jpg" alt="Ace Attorney"></div>
           <div class="card-body">
-            <p class="card-tag">Misterio Judicial · Completa</p>
-            <h3 class="card-title">Phoenix Wright: Ace Attorney</h3>
+            <p class="card-tag">Misterio · Completa</p>
+            <h3 class="card-title">Phoenix Wright 1</h3>
             <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6jtTfWjqMrCl7xsLK_IP0w4" target="_blank" class="card-cta">Ver en YouTube →</a>
+          </div>
+        </article>
+        <article class="playlist-card reveal">
+          <div class="card-thumbnail"><img src="https://img.youtube.com/vi/r_k0yT_y2hY/hqdefault.jpg" alt="Island Existence"></div>
+          <div class="card-body">
+            <p class="card-tag">YTTD Spin-off · En curso</p>
+            <h3 class="card-title">Island Existence</h3>
+            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6j1um7tF8SKTOCauqLu4Sed" target="_blank" class="card-cta">Ver en YouTube →</a>
           </div>
         </article>
       </div>
     </div>
   </section>
+
+  <section id="literaria" style="background:var(--bg-layer);">
+    <div class="container">
+      <div class="lit-card reveal">
+        <p class="lit-title">Entre páginas y miradas</p>
+        <p style="font-style:italic; color:var(--text-muted); line-height:1.8;">
+          Más allá del canal, también escribo. Historias que nacen de los mismos lugares que me atrajeron a las novelas visuales. 
+          Encontralo en Wattpad (aunque esté en pausa) para leer lo que nace fuera de cámaras.
+        </p>
+        <a href="https://www.wattpad.com/user/LocoTiki" target="_blank" style="margin-top:1.5rem; display:inline-block; color:var(--accent-teal); font-family:var(--font-mono); font-size:0.8rem; text-decoration:none;">Ir a Wattpad →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align:center; padding:3rem; border-top:1px solid var(--border-soft);">
+    <div style="font-family:var(--font-display); font-size:1.5rem; color:var(--accent-brand); margin-bottom:0.5rem;">LocoTiki</div>
+    <p style="font-family:var(--font-mono); font-size:0.68rem; color:var(--text-dim);">© 2026 LocoTiki · Rosario, Argentina</p>
+  </footer>
 
   <script>
     const vnData = [
@@ -223,7 +306,7 @@
       { title: "Tomboy: Annoying Childhood Friend", duration: "Corta", score: 3, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6joQk4bRf0pJsfqH-WhlwiN", playlistLabel: "En curso" }
     ];
 
-    function renderTable(filter = "all") {
+   function renderTable(filter = "all") {
       const tbody = document.getElementById("vnTableBody");
       const filtered = vnData.filter(vn => {
         if (filter === "all") return true;
@@ -233,11 +316,11 @@
       tbody.innerHTML = filtered.map(vn => {
         const statusClass = { "Terminada": "status-done", "En curso": "status-ongoing", "Dropeada": "status-pending" }[vn.status] || "status-pending";
         return `<tr>
-          <td><span class="status-pill ${statusClass}">${vn.duration}</span></td>
-          <td style="font-weight:600">${vn.title}</td>
-          <td style="color:var(--accent-brand)">${"⭐".repeat(vn.score)}</td>
+          <td><span class="status-pill ${statusClass}" style="border:1px solid rgba(255,255,255,0.05)">${vn.duration}</span></td>
+          <td style="font-weight:600; font-style:italic;">${vn.title}</td>
+          <td style="letter-spacing:2px;">${"⭐".repeat(vn.score)}</td>
           <td><span class="status-pill ${statusClass}">${vn.status}</span></td>
-          <td><a href="${vn.playlist}" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:700">Ver →</a></td>
+          <td><a href="${vn.playlist}" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:700;">Ver →</a></td>
         </tr>`;
       }).join("");
     }
