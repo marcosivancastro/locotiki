@@ -15,7 +15,7 @@
       --bg-base:      #080b12;
       --bg-layer:     #0d1220;
       --bg-card:      #111827;
-      --accent-brand: #00bf62; /* Verde LocoTiki */
+      --accent-brand: #00bf62; /* Tu verde oficial */
       --text-primary: #e8e0d4;
       --text-muted:   #7a8499;
       --border:       rgba(0, 191, 98, 0.2);
@@ -38,6 +38,13 @@
       overflow-x: hidden;
     }
 
+    /* Scanline effect sutil */
+    body::after {
+      content: ""; position: fixed; inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+      background-size: 100% 4px; z-index: 10000; pointer-events: none; opacity: 0.1;
+    }
+
     /* Navbar */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -55,54 +62,62 @@
       text-align: center; padding: 2rem; position: relative;
     }
     .hero-mask { width: 150px; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(0,191,98,0.3)); margin-bottom: 1rem; }
+    .hero-logo { font-family: var(--font-display); font-size: clamp(3rem, 10vw, 6rem); font-weight: 900; }
+    .hero-logo span { color: var(--accent-brand); text-shadow: 0 0 30px var(--accent-brand); }
     
-    /* Bio Estilo Cuadro de Diálogo VN */
+    /* VN Dialog Style Bio */
     .vn-dialog {
       background: rgba(13, 18, 32, 0.9); border: 2px solid var(--accent-brand);
       padding: 1.8rem; border-radius: 4px; max-width: 650px; margin: 2rem auto;
       position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      animation: fadeUp 0.8s ease both;
     }
     .vn-name {
       position: absolute; top: -18px; left: 20px; background: var(--accent-brand);
       color: #000; padding: 2px 15px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 900;
       clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
     }
-    .vn-arrow {
-      position: absolute; bottom: 10px; right: 20px; color: var(--accent-brand);
-      animation: blink 1s infinite; font-size: 1.2rem;
-    }
+    .vn-arrow { position: absolute; bottom: 10px; right: 20px; color: var(--accent-brand); animation: blink 1s infinite; font-size: 1.2rem; }
 
     /* Hall of Fame */
-    .hall-of-fame {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem; margin-top: 3rem;
-    }
+    .fan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
     .fan-card {
-      background: linear-gradient(145deg, var(--bg-card), #161e2e);
-      border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px;
-      position: relative; transition: 0.3s;
+      background: var(--bg-card); border-left: 4px solid var(--accent-brand);
+      padding: 1.5rem; border-radius: 8px; position: relative; transition: 0.3s;
     }
-    .fan-card:hover { transform: translateY(-5px); border-color: var(--accent-brand); box-shadow: 0 0 20px rgba(0,191,98,0.2); }
-    .rank-icon { position: absolute; top: -10px; right: -10px; background: var(--accent-brand); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+    .fan-card:hover { transform: translateY(-5px); box-shadow: 0 0 20px rgba(0,191,98,0.2); }
+    .rank-num { position: absolute; top: 10px; right: 15px; color: var(--accent-brand); font-family: var(--font-mono); font-weight: 900; opacity: 0.3; font-size: 1.5rem; }
 
-    /* Estilos Generales Secciones */
+    /* Database y Filtros */
     .container { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; }
-    .section-title { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 2.5rem; text-align: center; }
+    .section-title { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
     .section-title span { color: var(--accent-brand); }
+
+    .tier-controls { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .tier-filter-btn {
+      padding: 0.5rem 1.2rem; border-radius: 100px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-muted); cursor: pointer; transition: 0.3s; font-family: var(--font-mono); font-size: 0.7rem;
+    }
+    .tier-filter-btn.active, .tier-filter-btn:hover { border-color: var(--accent-brand); color: var(--accent-brand); background: rgba(0, 191, 98, 0.1); }
 
     .tier-table-wrapper { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-layer); }
     .tier-table { width: 100%; border-collapse: collapse; }
     .tier-table td, .tier-table th { padding: 1.2rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    
+    .status-pill { padding: 0.25rem 0.7rem; border-radius: 100px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; }
+    .status-done { background: rgba(0, 191, 98, 0.1); color: var(--accent-brand); }
+    .status-ongoing { background: rgba(251,191,36,0.1); color: #fbbf24; }
+    .status-pending { background: rgba(148,163,184,0.1); color: #94a3b8; }
 
+    /* Playlist Hub */
     .playlist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-    .playlist-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    .playlist-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
+    .playlist-card:hover { transform: translateY(-8px); border-color: var(--accent-brand); }
     .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
     .card-content { padding: 1.5rem; }
 
     .social-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
-    .social-btn { padding: 0.6rem 1.5rem; border: 1px solid var(--border); border-radius: 4px; color: #fff; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; transition: 0.3s; }
-    .social-btn:hover { background: var(--accent-brand); color: #000; }
+    .social-btn { padding: 0.7rem 1.5rem; border: 1px solid var(--border); border-radius: 4px; color: #fff; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; transition: 0.3s; }
+    .social-btn:hover { background: var(--accent-brand); color: #000; box-shadow: 0 0 15px var(--accent-brand); }
 
     .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -113,7 +128,6 @@
   <nav>
     <a href="#" class="nav-logo">LocoTiki</a>
     <ul class="nav-links">
-      <li><a href="#hero">Inicio</a></li>
       <li><a href="#comunidad">Comunidad</a></li>
       <li><a href="#tierlist">Database</a></li>
       <li><a href="#playlists">Playlists</a></li>
@@ -122,19 +136,17 @@
 
   <section id="hero">
     <img src="images.jfif" alt="Máscara LocoTiki" class="hero-mask">
-    <h1 class="hero-logo" style="font-family: var(--font-display);">Loco<span>Tiki</span></h1>
+    <h1 class="hero-logo">Loco<span>Tiki</span></h1>
     
     <div class="vn-dialog reveal">
-      <div class="vn-name">Marcos ivan</div>
-      <p style="font-family: var(--font-body); font-size: 1.1rem; font-style: italic;">
-        "Simplemente un matero amante de las buenas novelas visuales. Pasen y lean... o mejor dicho, pasen y vean."
-      </p>
+      <div class="vn-name">Marcos Ivan</div>
+      <p style="font-style: italic;">"Simplemente un matero amante de las novelas visuales."</p>
       <div class="vn-arrow">▼</div>
     </div>
 
     <div class="social-links reveal">
       <a href="https://youtube.com/@LocoTiki" target="_blank" class="social-btn"><i class="fab fa-youtube"></i> YouTube</a>
-      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn"><i class="fab fa-x-twitter"></i> Twitter</a>
+      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn"><i class="fab fa-x-twitter"></i> X / Twitter</a>
       <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
       <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn"><i class="fas fa-list"></i> MAL</a>
     </div>
@@ -143,26 +155,21 @@
   <section id="comunidad" style="background: var(--bg-layer);">
     <div class="container">
       <h2 class="section-title">Hall of <span>Fame</span></h2>
-      <p style="text-align:center; color: var(--text-muted); margin-top:-2rem; margin-bottom:3rem;">Reconocimiento a los navegantes más activos del canal.</p>
-      
-      <div class="hall-of-fame">
+      <div class="fan-grid">
         <div class="fan-card reveal">
-          <div class="rank-icon">1</div>
-          <span style="color:var(--accent-brand); font-family:var(--font-mono); font-size:0.9rem;">Top Comentador</span>
-          <h3 style="margin:0.5rem 0;">@NombreUsuario</h3>
-          <p style="font-size:0.85rem; color:var(--text-muted);">"Siempre presente en cada estreno de Umineko."</p>
+          <div class="rank-num">#1</div>
+          <h3 style="color:var(--accent-brand);">@UsuarioTop</h3>
+          <p class="fan-comment">"El comentador más activo de este mes. ¡Gracias por el aguante!"</p>
         </div>
         <div class="fan-card reveal">
-          <div class="rank-icon">2</div>
-          <span style="color:var(--accent-brand); font-family:var(--font-mono); font-size:0.9rem;">Fan Destacado</span>
-          <h3 style="margin:0.5rem 0;">@OtroUsuario</h3>
-          <p style="font-size:0.85rem; color:var(--text-muted);">"Sus teorías en los comentarios son de otro nivel."</p>
+          <div class="rank-num">#2</div>
+          <h3 style="color:var(--accent-brand);">@TeoristaVN</h3>
+          <p class="fan-comment">"Por esas teorías locas en los videos de Umineko."</p>
         </div>
         <div class="fan-card reveal">
-          <div class="rank-icon">3</div>
-          <span style="color:var(--accent-brand); font-family:var(--font-mono); font-size:0.9rem;">Miembro Activo</span>
-          <h3 style="margin:0.5rem 0;">@SuscritoRosario</h3>
-          <p style="font-size:0.85rem; color:var(--text-muted);">"Aguante LocoTiki, el mejor contenido de SF."</p>
+          <div class="rank-num">#3</div>
+          <h3 style="color:var(--accent-brand);">@FanDeRosario</h3>
+          <p class="fan-comment">"Aguante el contenido local y las buenas historias."</p>
         </div>
       </div>
     </div>
@@ -171,10 +178,21 @@
   <section id="tierlist">
     <div class="container">
       <h2 class="section-title">VN <span>Database</span></h2>
+      
+      <div class="tier-controls reveal">
+        <button class="tier-filter-btn active" data-filter="all">Todas</button>
+        <button class="tier-filter-btn" data-filter="Corta">⏳ Cortas</button>
+        <button class="tier-filter-btn" data-filter="Media">⏳ Medias</button>
+        <button class="tier-filter-btn" data-filter="Larga">⏳ Largas</button>
+        <button class="tier-filter-btn" data-filter="Terminada">✓ Terminadas</button>
+        <button class="tier-filter-btn" data-filter="En curso">▶ En curso</button>
+        <button class="tier-filter-btn" data-filter="Dropeada">✕ Dropeadas</button>
+      </div>
+
       <div class="tier-table-wrapper reveal">
         <table class="tier-table">
           <thead>
-            <tr><th>Duración</th><th>Título</th><th>Score</th><th>Estado</th><th>Playlist</th></tr>
+            <tr><th>Tiempo</th><th>Título</th><th>Score</th><th>Estado</th><th>Link</th></tr>
           </thead>
           <tbody id="vnTableBody">
             </tbody>
@@ -190,23 +208,30 @@
         <article class="playlist-card reveal">
           <img src="https://img.youtube.com/vi/tDWIB3UYkKA/hqdefault.jpg" class="card-img" alt="Umineko">
           <div class="card-content">
-            <h3 style="margin-bottom:0.5rem;">Umineko Chiru</h3>
-            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:900;">VER SERIE →</a>
+            <h3 style="font-family: var(--font-display); margin-bottom: 0.5rem;">Umineko Chiru</h3>
+            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g" target="_blank" style="color: var(--accent-brand); text-decoration: none; font-weight: 700;">Ver Playlist →</a>
           </div>
         </article>
         <article class="playlist-card reveal">
           <img src="https://img.youtube.com/vi/jtTfWjqMrCl/hqdefault.jpg" class="card-img" alt="Ace Attorney">
           <div class="card-content">
-            <h3 style="margin-bottom:0.5rem;">Phoenix Wright 1</h3>
-            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6jtTfWjqMrCl7xsLK_IP0w4" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:900;">VER SERIE →</a>
+            <h3 style="font-family: var(--font-display); margin-bottom: 0.5rem;">Phoenix Wright 1</h3>
+            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6jtTfWjqMrCl7xsLK_IP0w4" target="_blank" style="color: var(--accent-brand); text-decoration: none; font-weight: 700;">Ver Playlist →</a>
+          </div>
+        </article>
+        <article class="playlist-card reveal">
+          <img src="https://img.youtube.com/vi/r_k0yT_y2hY/hqdefault.jpg" class="card-img" alt="Island Existence">
+          <div class="card-content">
+            <h3 style="font-family: var(--font-display); margin-bottom: 0.5rem;">Island Existence</h3>
+            <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6j1um7tF8SKTOCauqLu4Sed" target="_blank" style="color: var(--accent-brand); text-decoration: none; font-weight: 700;">Ver Playlist →</a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <footer style="padding:4rem; text-align:center; border-top:1px solid var(--border);">
-    <p style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted);">© 2026 LocoTiki · Hecho en Rosario con pasión</p>
+  <footer style="padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--border);">
+    <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">© 2026 LocoTiki · Rosario, Argentina</p>
   </footer>
   
   <script>
@@ -245,19 +270,34 @@
       { title: "Tomboy", duration: "Corta", score: 3, status: "En curso", playlist: "https://www.youtube.com/playlist?list=PLIuJCbWely6joQk4bRf0pJsfqH-WhlwiN" }
     ];
 
-    function renderTable() {
+    function renderTable(filter = "all") {
       const tbody = document.getElementById("vnTableBody");
-      tbody.innerHTML = vnData.map(vn => {
+      const filtered = vnData.filter(vn => {
+        if (filter === "all") return true;
+        if (["Corta", "Media", "Larga"].includes(filter)) return vn.duration === filter;
+        return vn.status === filter;
+      });
+      
+      tbody.innerHTML = filtered.map(vn => {
         const sClass = vn.status === "Terminada" ? "status-done" : (vn.status === "En curso" ? "status-ongoing" : "status-pending");
         return `<tr>
           <td><span class="status-pill ${sClass}">${vn.duration}</span></td>
           <td style="font-weight:600;">${vn.title}</td>
-          <td style="color:var(--accent-brand)">${"⭐".repeat(vn.score)}</td>
+          <td style="color:var(--accent-brand); letter-spacing:2px;">${"⭐".repeat(vn.score)}</td>
           <td><span class="status-pill ${sClass}">${vn.status}</span></td>
           <td><a href="${vn.playlist}" target="_blank" style="color:var(--accent-brand); text-decoration:none; font-weight:700;">Ver →</a></td>
         </tr>`;
       }).join("");
     }
+
+    // Event listeners para los filtros restaurados
+    document.querySelectorAll(".tier-filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tier-filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderTable(btn.dataset.filter);
+      });
+    });
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
