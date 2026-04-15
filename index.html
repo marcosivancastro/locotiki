@@ -9,32 +9,66 @@
   <!-- Google Fonts: Cinzel (display) + Lora (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     /* ================================================
        VARIABLES DE DISEÑO — Acá se define toda la paleta.
        Si querés cambiar un color, solo modificá esto.
     ================================================ */
+    <style>
     :root {
       --bg-base:      #080b12;
       --bg-layer:     #0d1220;
       --bg-card:      #111827;
-      --bg-card-alt:  #0f1a2e;
-      /* Cambiamos el dorado por un Verde Flúor vibrante */
+      /* Tu verde flúor para el canal */
       --accent-gold:  #ccff00; 
       --accent-teal:  #2dd4bf;
       --accent-rose:  #e07b8a;
       --text-primary: #e8e0d4;
       --text-muted:   #7a8499;
-      --text-dim:     #4a5568;
-      /* Ajustamos el brillo de las sombras para el verde */
-      --border:       rgba(204, 255, 0, 0.2); 
-      --border-soft:  rgba(255,255,255,0.06);
-      --shadow-gold:  0 0 40px rgba(204, 255, 0, 0.15);
-      /* ... resto de variables ... */
+      --border:       rgba(204, 255, 0, 0.18);
+      --font-display: 'Cinzel', serif;
+      --font-body:    'Lora', serif;
+      --font-mono:    'JetBrains Mono', monospace;
+      --shadow-gold:  0 0 30px rgba(204, 255, 0, 0.2);
+      --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
     }
 
+    /* Estilo para los botones sociales que se nos habían escapado */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .social-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+    .social-btn.youtube { background: rgba(255,0,0,0.15); color: #ff6b6b; border-color: rgba(255,0,0,0.3); }
+    .social-btn.twitter { background: rgba(29,161,242,0.15); color: #1da1f2; border-color: rgba(29,161,242,0.3); }
+    .social-btn.instagram { background: rgba(225,48,108,0.15); color: #e1306c; border-color: rgba(225,48,108,0.3); }
+    .social-btn.mal { background: rgba(46,76,157,0.15); color: #2e4c9d; border-color: rgba(46,76,157,0.3); }
+
+    .hero-logo span {
+      color: var(--accent-gold);
+      text-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+    }
+</style>
     /* ================================================
        RESET Y BASE
     ================================================ */
@@ -243,7 +277,25 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.344 0h-14.688c-2.571 0-4.656 2.085-4.656 4.656v14.688c0 2.571 2.085 4.656 4.656 4.656h14.688c2.571 0 4.656-2.085 4.656-4.656v-14.688c0-2.571-2.085-4.656-4.656-4.656zm-11.844 17.188h-1.5v-7.312h-1.5v-1.188h4.5v1.188h-1.5v7.312zm7.125 0h-4.125v-8.5h1.5v7.312h2.625v1.188zm5.25-1.188c0 .656-.531 1.188-1.188 1.188h-2.625v-8.5h1.5v7.312h1.125v-7.312h1.188v7.312z"/></svg>
         MAL
       </a>
+    </div><section id="hero">
+    <div class="vn-lines"></div>
+
+    <div class="hero-image-container" style="margin-bottom: 2rem; animation: fadeUp 0.8s ease both; display: flex; justify-content: center;">
+      <img src="images.jfif" alt="Máscara LocoTiki" style="width: 150px; height: auto; filter: drop-shadow(0 0 20px rgba(204,255,0,0.3));">
     </div>
+
+    <h1 class="hero-logo">Loco<span>Tiki</span></h1>
+    <p class="hero-subtitle" style="color: var(--accent-gold); font-weight: 700;">Let's Plays · Narrativa · Visual Novels</p>
+
+    <div class="social-links">
+      <a href="https://youtube.com/@LocoTiki" target="_blank" class="social-btn youtube">YouTube</a>
+      <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn twitter">X / Twitter</a>
+      <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn instagram">Instagram</a>
+      <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn mal">MyAnimeList</a>
+    </div>
+
+    <div class="scroll-hint">↓</div>
+  </section>
 
     /* Flecha de scroll */
     .scroll-hint {
