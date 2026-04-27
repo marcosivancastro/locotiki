@@ -23,13 +23,6 @@
       --font-body:    'Lora', serif;
       --font-mono:    'JetBrains Mono', monospace;
       --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
-      /* Añade esto a tu sección de estilos */
-.bg-mesh {
-  position: fixed; inset: 0; z-index: -1;
-  background: radial-gradient(circle at 10% 20%, #00bf6210, transparent),
-              radial-gradient(circle at 90% 80%, #00bf6205, transparent);
-  background-color: var(--bg-base);
-}
     }
 
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -128,10 +121,68 @@
 
     .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* 1. Fondo Dinámico */
+.bg-mesh {
+  position: fixed; inset: 0; z-index: -1;
+  background: radial-gradient(circle at 15% 25%, #00bf6215, transparent 40%),
+              radial-gradient(circle at 85% 75%, #00bf6210, transparent 40%);
+  background-color: var(--bg-base);
+}
+
+/* 2. Slider / Carrusel */
+.slider-container {
+  padding: 2rem 0;
+  background: rgba(0,0,0,0.2);
+  margin-bottom: 2rem;
+}
+.slider-track {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px 2rem;
+  scrollbar-width: none; /* Oculta scroll en Firefox */
+}
+.slider-track::-webkit-scrollbar { display: none; } /* Oculta scroll en Chrome/Safari */
+
+.slider-item {
+  flex: 0 0 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  transition: var(--transition);
+  aspect-ratio: 16/9;
+}
+.slider-item:hover {
+  transform: scale(1.05);
+  border-color: var(--accent-brand);
+  box-shadow: 0 0 20px rgba(0, 191, 98, 0.4);
+}
+.slider-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 3. Glassmorphism para tus tarjetas actuales */
+.vn-dialog, .fan-card, .playlist-card, .tier-table-wrapper {
+  background: rgba(17, 24, 39, 0.6) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+/* 4. Efecto Glitch y Micro-interacciones */
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #00bf62, -2px 0 #2dd4bf; }
+  50% { text-shadow: -2px 0 #00bf62, 2px 0 #2dd4bf; }
+  100% { text-shadow: 2px 0 #00bf62, -2px 0 #2dd4bf; }
+}
+.glitch-title:hover { animation: glitch 0.25s infinite; }
+
+.social-btn:hover {
+  text-shadow: 0 0 10px var(--accent-brand);
+  transform: translateY(-3px);
+}
   </style>
 </head>
 <body>
-
+<div class="bg-mesh"></div>
   <nav>
     <a href="#" class="nav-logo">LocoTiki</a>
     <ul class="nav-links">
@@ -156,9 +207,25 @@
       <a href="https://twitter.com/marcoscastrolt" target="_blank" class="social-btn"><i class="fab fa-x-twitter"></i> X / Twitter</a>
       <a href="https://instagram.com/locotiki_" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
       <a href="https://myanimelist.net/profile/LocoTiki" target="_blank" class="social-btn"><i class="fas fa-list"></i> MAL</a>
-    </div>
-  </section>
 
+      <section class="slider-container reveal">
+  <div class="container"><p class="section-label">✦ Destacados del Canal</p></div>
+  <div class="slider-track">
+    <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6g1z1KZocSkFbkYcc1cEc2g" class="slider-item">
+      <img src="https://img.youtube.com/vi/tDWIB3UYkKA/hqdefault.jpg" alt="Umineko Chiru">
+    </a>
+    <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6jtTfWjqMrCl7xsLK_IP0w4" class="slider-item">
+      <img src="https://img.youtube.com/vi/jtTfWjqMrCl/hqdefault.jpg" alt="Phoenix Wright">
+    </a>
+    <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6j1um7tF8SKTOCauqLu4Sed" class="slider-item">
+      <img src="https://img.youtube.com/vi/r_k0yT_y2hY/hqdefault.jpg" alt="Island Existence">
+    </a>
+    <a href="https://www.youtube.com/playlist?list=PLIuJCbWely6hNmprOWDfzKIKz-j_Uwb_w" class="slider-item">
+      <img src="https://img.youtube.com/vi/V8_4W7ZpT5w/hqdefault.jpg" alt="Danganronpa 2">
+    </a>
+  </div>
+</section>
+  
   <section id="comunidad" style="background: var(--bg-layer);">
     <div class="container">
       <h2 class="section-title">Hall of <span>Fame</span></h2>
