@@ -31,6 +31,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
+      <div class="bg-mesh"></div>
+      .bg-mesh {
+  position: fixed; inset: 0; z-index: -1;
+  background: radial-gradient(circle at 10% 20%, #00bf6210, transparent),
+              radial-gradient(circle at 90% 80%, #00bf6205, transparent);
+  background-color: var(--bg-base);
+}
       font-family: var(--font-body);
       background-color: var(--bg-base);
       color: var(--text-primary);
